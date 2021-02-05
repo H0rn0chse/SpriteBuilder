@@ -3,10 +3,21 @@
 	<head>
 		<meta charset="utf-8">
 		<title>SpriteBuilder</title>
-		<link rel="stylesheet" href="styles/style.css">
+		<link rel="stylesheet" type="text/css" href="styles/style.css">
+		<script src='https://unpkg.com/panzoom@9.4.0/dist/panzoom.min.js'></script>
 	</head>
+	<script type="module">
+		import { init } from "./scripts/main.js";
+		init();
+	</script>
 	<body>
-
+		<div id="container">
+			<div class="top"></div>
+			<div class="side"></div>
+			<div id="scene" class="main">
+				<p>some test text</p>
+			</div>
+		</div>
 	</body>
 	<script
 		data-label="Check out the GitHub repository!"
