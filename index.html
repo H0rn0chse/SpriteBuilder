@@ -1,28 +1,49 @@
 <!DOCTYPE html>
 <html lang="de">
-	<head>
-		<meta charset="utf-8">
-		<title>SpriteBuilder</title>
-		<link rel="stylesheet" type="text/css" href="styles/style.css">
-		<script src='https://unpkg.com/panzoom@9.4.0/dist/panzoom.min.js'></script>
-	</head>
-	<script type="module">
-		import { init } from "./scripts/main.js";
-		init();
-	</script>
-	<body>
-		<div id="container">
-			<div class="top"></div>
-			<div class="side"></div>
-			<div id="scene" class="main">
-				<p>some test text</p>
-			</div>
-		</div>
-	</body>
-	<script
-		data-label="Check out the GitHub repository!"
-		data-href="https://github.com/H0rn0chse/SpriteBuilder"
-		data-target="_blank"
-		src="https://unpkg.com/github-corners@latest/dist/embed.min.js" >
-	</script>
+    <head>
+        <meta charset="utf-8">
+        <title>SpriteBuilder</title>
+        <link rel="stylesheet" type="text/css" href="styles/style.css">
+        <link rel="stylesheet" type="text/css" href="styles/zoom.css">
+        <link rel="stylesheet" type="text/css" href="styles/grid.css">
+        <script src="https://unpkg.com/panzoom@9.4.0/dist/panzoom.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/muuri@0.9.3/dist/muuri.min.js"></script>
+    </head>
+    <script type="module">
+        import { init } from "./scripts/main.js";
+        init();
+    </script>
+
+    <body>
+        <div id="container">
+            <div class="top"></div>
+            <div class="side"></div>
+            <div id="scene" class="main">
+                <div class="grid">
+                    <div class="item">
+                        <div class="item-content">
+                            <!-- Safe zone, enter your custom markup -->
+                            This can be anything.
+                            <!-- Safe zone ends -->
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="item-content">
+                            <!-- Safe zone, enter your custom markup -->
+                            <div class="my-custom-content">
+                                Yippee!
+                            </div>
+                            <!-- Safe zone ends -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script
+        data-label="Check out the GitHub repository!"
+        data-href="https://github.com/H0rn0chse/SpriteBuilder"
+        data-target="_blank"
+        src="https://unpkg.com/github-corners@latest/dist/embed.min.js">
+    </script>
 </html>

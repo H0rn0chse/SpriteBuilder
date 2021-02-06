@@ -10,9 +10,7 @@ body {
     display: grid;
     grid-template-columns: 15em auto;
     grid-template-rows: 10em auto;
-    grid-template-areas:
-        "top top"
-        "side main";
+    grid-template-areas: "top top" "side main";
 }
 
 .top {
@@ -28,8 +26,4 @@ body {
 .main {
     grid-area: main;
     background-color: lightpink;
-}
-
-#scene {
-    z-index: -1;
 }
