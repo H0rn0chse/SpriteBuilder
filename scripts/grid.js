@@ -12,9 +12,13 @@ export function initGrid (container) {
     element = container
     grid = new Muuri(container, {
         dragEnabled: true,
-        items: '.item',
+        items: ".item",
         dragPlaceholder: {
             enabled: true
+        },
+        dragSortPredicate: {
+            action: "swap",
+            migrateAction: "swap"
         }
     })
 
