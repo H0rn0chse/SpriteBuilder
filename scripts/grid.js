@@ -46,7 +46,16 @@ export function addRow () {
     addItems(columns)
 }
 
-function addItems (items) {
+export function addColumn () {
+    const indexList = new Array(rows).fill(0).map((value, index, arr) => {
+        return columns * (index + 1) + index
+    })
+    columns += 1
+    updateSize()
+    addItems(rows, indexList)
+}
+
+function addItems (items, indexList) {
     for(let i = 0; i < items; i++) {
         const item = document.createElement("div")
         const itemContent = document.createElement("div")
@@ -55,18 +64,15 @@ function addItems (items) {
         item.appendChild(itemContent)
         item.classList.add("empty-item")
         item.classList.add("item")
+
+        const index = Array.isArray(indexList) ? indexList[i] : -1
         grid.add(item, {
-            layout: false
+            layout: false,
+            index: index
         })
     }
     itemCount += items
     grid.layout()
-}
-
-export function addColumn () {
-    columns += 1
-    updateSize()
-    addItems(rows)
 }
 
 export function updateSize () {
