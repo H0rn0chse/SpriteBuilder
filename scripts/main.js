@@ -5,7 +5,7 @@ import { initZoom } from "./zoom.js";
 export function init() {
     initZoom(document.querySelector('#scene'))
 
-    initGrid(".grid")
+    initGrid(document.querySelector('#grid'))
 
     initUi()
 }

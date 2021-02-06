@@ -6,6 +6,9 @@ export function initZoom (element) {
         },
         beforeWheel: evt => {
             return !evt.ctrlKey
+        },
+        filterKey: (e, dx, dy, dz) => {
+            return true;
         }
     })
 

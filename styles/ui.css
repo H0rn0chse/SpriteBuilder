@@ -5,3 +5,7 @@
 #buttonBar > * {
     margin-left: 1em;
 }
+
+#buttonBar .numberInput {
+    max-width: 5em;
+}

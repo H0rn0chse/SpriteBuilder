@@ -21,29 +21,14 @@
             <div class="top ui flexColumn">
                 <h1>SpriteBuilder</h1>
                 <div id="buttonBar" class="flexRow">
-                    <button>Button</button>
+                    <label>BlockSize: <input class="numberInput" id="blockSize" type="number" value="32"></input></label>
+                    <button id="addRow">Add Row</button>
+                    <button id="addColumn">Add Column</button>
                 </div>
             </div>
             <div class="side ui"></div>
             <div id="scene" class="main">
-                <div class="grid">
-                    <div class="item">
-                        <div class="item-content">
-                            <!-- Safe zone, enter your custom markup -->
-                            This can be anything.
-                            <!-- Safe zone ends -->
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="item-content">
-                            <!-- Safe zone, enter your custom markup -->
-                            <div class="my-custom-content">
-                                Yippee!
-                            </div>
-                            <!-- Safe zone ends -->
-                        </div>
-                    </div>
-                </div>
+                <div id="grid"></div>
             </div>
         </div>
     </body>

@@ -25,12 +25,12 @@ body {
 
 .main {
     grid-area: main;
-    background-color: lightpink;
 }
 
 .flexRow {
     display: flex;
     flex-direction: row;
+    align-items: center;
 }
 
 .flexColumn {
