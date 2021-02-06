@@ -13,6 +13,11 @@
     color: #fff;
 }
 
+.muuri-item-placeholder {
+    background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='25' ry='25' stroke='lime' stroke-width='6' stroke-dasharray='4%2c 11' stroke-dashoffset='40' stroke-linecap='square'/%3e%3c/svg%3e");
+    border-radius: 25%;
+}
+
 .item.muuri-item-dragging {
     z-index: 3;
 }

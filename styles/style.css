@@ -27,3 +27,13 @@ body {
     grid-area: main;
     background-color: lightpink;
 }
+
+.flexRow {
+    display: flex;
+    flex-direction: row;
+}
+
+.flexColumn {
+    display: flex;
+    flex-direction: column;
+}

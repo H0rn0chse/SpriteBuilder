@@ -6,8 +6,10 @@
         <link rel="stylesheet" type="text/css" href="styles/style.css">
         <link rel="stylesheet" type="text/css" href="styles/zoom.css">
         <link rel="stylesheet" type="text/css" href="styles/grid.css">
+        <link rel="stylesheet" type="text/css" href="styles/ui.css">
         <script src="https://unpkg.com/panzoom@9.4.0/dist/panzoom.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/muuri@0.9.3/dist/muuri.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic">
     </head>
     <script type="module">
         import { init } from "./scripts/main.js";
@@ -16,8 +18,13 @@
 
     <body>
         <div id="container">
-            <div class="top"></div>
-            <div class="side"></div>
+            <div class="top ui flexColumn">
+                <h1>SpriteBuilder</h1>
+                <div id="buttonBar" class="flexRow">
+                    <button>Button</button>
+                </div>
+            </div>
+            <div class="side ui"></div>
             <div id="scene" class="main">
                 <div class="grid">
                     <div class="item">

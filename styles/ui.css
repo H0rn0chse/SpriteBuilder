@@ -1,0 +1,7 @@
+.ui.top h1 {
+    padding-left: 0.5em;
+}
+
+#buttonBar > * {
+    margin-left: 1em;
+}
