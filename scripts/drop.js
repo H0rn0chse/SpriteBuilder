@@ -1,7 +1,9 @@
+import { importFile, importFileHandler } from "./importFile.js";
+
 let dragArea
 
-export function initDrag (element) {
-    dragArea = element
+export function initDrag (area, button) {
+    dragArea = area
     dragArea.addEventListener("dragleave", setHoverClass.bind(this, false))
     dragArea.addEventListener("dragend", setHoverClass.bind(this, false))
     dragArea.addEventListener("drop", setHoverClass.bind(this, false))
@@ -11,18 +13,20 @@ export function initDrag (element) {
 
     dragArea.addEventListener("drop", handleDrop.bind(this))
     dragArea.addEventListener("dragover", handleDragOver.bind(this))
+
+    button.addEventListener("click", importFile)
 }
 
-const lastHover = {};
+const lastHover = {}
 function setHoverClass (isHovered) {
     // keep own timeout running
     if (lastHover.wasHovered === isHovered) {
-        return;
+        return
     }
 
     // clear enemy timeout
     if (lastHover.timeoutId && dragArea.classList.contains("light") === isHovered && lastHover.wasHovered !== isHovered) {
-        clearTimeout(lastHover.timeoutId);
+        clearTimeout(lastHover.timeoutId)
         lastHover.timeoutId = null
         lastHover.wasHovered = isHovered
     }
@@ -41,16 +45,16 @@ function setHoverClass (isHovered) {
     }
 }
 
-function handleDragOver (event) {
-    event.preventDefault()
-    event.stopPropagation();
+function handleDragOver (evt) {
+    evt.preventDefault()
+    evt.stopPropagation()
 
     setHoverClass(true)
 }
 
-function handleDrop (event) {
-    event.stopPropagation();
-    event.preventDefault()
+function handleDrop (evt) {
+    evt.stopPropagation()
+    evt.preventDefault()
 
     const eventOut = {
         target: {
@@ -58,17 +62,17 @@ function handleDrop (event) {
         }
     }
 
-    if (event.dataTransfer.items) {
-        for (var i = 0; i < event.dataTransfer.items.length; i++) {
-            if (event.dataTransfer.items[i].kind === 'file') {
-                eventOut.target.files[i] = event.dataTransfer.items[i].getAsFile();
+    if (evt.dataTransfer.items) {
+        for (var i = 0; i < evt.dataTransfer.items.length; i++) {
+            if (evt.dataTransfer.items[i].kind === 'file') {
+                eventOut.target.files[i] = evt.dataTransfer.items[i].getAsFile();
             }
           }
     } else {
-        for (var i = 0; i < event.dataTransfer.files.length; i++) {
-            eventOut.target.files[i] = event.dataTransfer.files[i]
+        for (var i = 0; i < evt.dataTransfer.files.length; i++) {
+            eventOut.target.files[i] = evt.dataTransfer.files[i]
         }
     }
-    console.error("do stuff")
-    //window.handleFileSelect(eventOut)
+
+    importFileHandler(eventOut)
 }

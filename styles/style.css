@@ -13,6 +13,10 @@ body {
     grid-template-areas: "top top" "side main";
 }
 
+#hidden {
+    display: none;
+}
+
 .top {
     grid-area: top;
     background-color: lightcyan;
@@ -25,10 +29,6 @@ body {
 
 .main {
     grid-area: main;
-}
-
-.hidden {
-    display: none;
 }
 
 .flexRow {

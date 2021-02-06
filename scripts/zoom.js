@@ -10,11 +10,11 @@ export function initZoom (element) {
             return true
         },
         filterKey: (e, dx, dy, dz) => {
-            return true;
+            return true
         }
     })
 
-    pan.moveTo(64, 32);
+    pan.moveTo(64, 32)
 
     addGrabbingHandler()
 }
