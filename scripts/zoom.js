@@ -14,10 +14,12 @@ export function initZoom (element) {
         }
     })
 
-    addGabbingHandler()
+    pan.moveTo(64, 32);
+
+    addGrabbingHandler()
 }
 
-function addGabbingHandler() {
+function addGrabbingHandler() {
     document.addEventListener("keydown", evt => {
         if (evt.ctrlKey && !globalThis.panning && !globalThis.dragging) {
             document.body.style.cursor = "grab"

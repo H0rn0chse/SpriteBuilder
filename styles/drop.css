@@ -1,0 +1,29 @@
+#dropArea {
+    width: calc(100% - 2em);
+    height: calc(100% - 4em);
+    margin: 2em 1em;
+    background-color: #7CA982;
+
+    border-color: #243E36;
+    border-style: solid;
+    border-radius: 30px;
+    border-width: 5px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+#dropArea.light {
+    background-color: #AECCA4
+}
+
+#dropArea > * {
+    margin: 5px;
+}
+
+.dropAreaButton {
+    background-color: #243E36;
+}

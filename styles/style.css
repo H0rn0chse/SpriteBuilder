@@ -27,6 +27,10 @@ body {
     grid-area: main;
 }
 
+.hidden {
+    display: none;
+}
+
 .flexRow {
     display: flex;
     flex-direction: row;

@@ -7,6 +7,7 @@
         <link rel="stylesheet" type="text/css" href="styles/zoom.css">
         <link rel="stylesheet" type="text/css" href="styles/grid.css">
         <link rel="stylesheet" type="text/css" href="styles/ui.css">
+        <link rel="stylesheet" type="text/css" href="styles/drop.css">
         <script src="https://unpkg.com/panzoom@9.4.0/dist/panzoom.min.js"></script>
         <!--<script src="https://cdn.jsdelivr.net/npm/muuri@0.9.3/dist/muuri.min.js"></script>-->
         <script src="./libs/muuri.min.js"></script>
@@ -27,11 +28,17 @@
                     <button id="addColumn">Add Column</button>
                 </div>
             </div>
-            <div class="side ui"></div>
+            <div class="side ui">
+                <div id="dropArea">
+                    <button id="addImage" class="dropAreaButton">Add Image</button>
+                    <p>Drop Images here to add them to the grid</p>
+                </div>
+            </div>
             <div id="scene" class="main">
                 <div id="grid"></div>
             </div>
         </div>
+        <div class="hidden"></div>
     </body>
     <script
         data-label="Check out the GitHub repository!"
