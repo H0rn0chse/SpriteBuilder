@@ -1,11 +1,13 @@
+import { setDraggable } from "./grid.js";
+
 export function initZoom (element) {
     const pan = globalThis.panzoom(element, {
         zoomDoubleClickSpeed: 1, //disable double click zoom
         beforeMouseDown: evt => {
             return !evt.ctrlKey
         },
-        beforeWheel: evt => {
-            return !evt.ctrlKey
+        beforeWheel: evt => { //zoom does not work in combination with muuri
+            return true
         },
         filterKey: (e, dx, dy, dz) => {
             return true;
@@ -17,23 +19,28 @@ export function initZoom (element) {
 
 function addGabbingHandler() {
     document.addEventListener("keydown", evt => {
-        if (evt.ctrlKey && !globalThis.grabbing) {
+        if (evt.ctrlKey && !globalThis.panning && !globalThis.dragging) {
             document.body.style.cursor = "grab"
         }
     })
     document.addEventListener("keyup", evt => {
-        if (!evt.ctrlKey && !globalThis.grabbing) {
+        if (!evt.ctrlKey && !globalThis.panning) {
             document.body.style.cursor = ""
         }
     })
     document.addEventListener("mousedown", evt => {
         if (evt.ctrlKey) {
-            globalThis.grabbing = true
-            document.body.style.cursor = "grabbing"
+            globalThis.panning = true
+            document.body.style.cursor = "panning"
+            setDraggable(false)
         }
     })
     document.addEventListener("mouseup", evt => {
-        globalThis.grabbing = false
+        if (globalThis.panning){
+            globalThis.panning = false
+            setDraggable(true)
+        }
+
         if (evt.ctrlKey) {
             document.body.style.cursor = "grab"
         } else {

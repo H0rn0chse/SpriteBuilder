@@ -18,12 +18,26 @@ export function initGrid (container) {
         }
     })
 
+    grid.on("dragStart", evt => {
+        globalThis.dragging = true
+    })
+
+    grid.on("dragEnd", evt => {
+        globalThis.dragging = false
+    })
+
     updateSize()
     addItems(16)
 }
 
 function customLayout () {
 
+}
+
+export function setDraggable (value) {
+    grid.updateSettings({
+        dragEnabled: !!value
+    })
 }
 
 export function addRow () {
