@@ -12,6 +12,10 @@ export function initUi () {
     document.querySelector("#reset").addEventListener("click", evt => {
         Grid.reset()
     })
+
+    document.querySelector("#save").addEventListener("click", evt => {
+        Grid.save()
+    })
 }
 
 export function getBlockSize () {
