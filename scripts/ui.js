@@ -1,19 +1,19 @@
-import { addColumn, addRow, updateSize } from "./grid.js";
+import { addColumn, addRow, resetGrid } from "./grid.js";
 
 export function initUi () {
-    document.getElementById("addRow").addEventListener("click", evt => {
+    document.querySelector("#addRow").addEventListener("click", evt => {
         addRow()
     })
 
-    document.getElementById("addColumn").addEventListener("click", evt => {
+    document.querySelector("#addColumn").addEventListener("click", evt => {
         addColumn()
     })
 
-    document.getElementById("blockSize").addEventListener("change", evt => {
-        updateSize()
+    document.querySelector("#reset").addEventListener("click", evt => {
+        resetGrid()
     })
 }
 
 export function getBlockSize () {
-    return document.getElementById("blockSize").value;
+    return document.querySelector("#blockSize").value;
 }

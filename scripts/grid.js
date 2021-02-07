@@ -4,9 +4,11 @@ const MARGIN = 5
 
 let grid = null
 let element = null
+// default values get overwritten by reset
 let rows = 4
 let columns = 4
 let itemCount = 1
+let currentBlockSize = 32
 
 export function initGrid (container) {
     element = container
@@ -30,12 +32,21 @@ export function initGrid (container) {
         globalThis.dragging = false
     })
 
-    updateSize()
+    resetGrid()
+}
+
+export function resetGrid () {
+    rows = 4
+    columns = 4
+    itemCount = 1
+    currentBlockSize = getBlockSize()
+    removeAllItems()
+    updateGridSize()
     addItems(16)
 }
 
-function customLayout () {
-
+function removeAllItems() {
+    grid.remove(grid.getItems(), { layout: false, removeElements: true });
 }
 
 export function setDraggable (value) {
@@ -46,7 +57,7 @@ export function setDraggable (value) {
 
 export function addRow () {
     rows += 1
-    updateSize()
+    updateGridSize()
     addItems(columns)
 }
 
@@ -55,7 +66,7 @@ export function addColumn () {
         return columns * (index + 1) + index
     })
     columns += 1
-    updateSize()
+    updateGridSize()
     addItems(rows, indexList)
 }
 
@@ -68,6 +79,8 @@ function addItems (items, indexList) {
         item.appendChild(itemContent)
         item.classList.add("empty-item")
         item.classList.add("item")
+        item.style.width = currentBlockSize + "px"
+        item.style.height = currentBlockSize + "px"
 
         const index = Array.isArray(indexList) ? indexList[i] : -1
         grid.add(item, {
@@ -79,8 +92,11 @@ function addItems (items, indexList) {
     grid.layout()
 }
 
-export function updateSize () {
-    const size = getBlockSize()
-    element.style.width = size * columns + MARGIN * 2 * columns + "px"
-    element.style.height = size * rows + MARGIN * 2 * rows + "px"
+export function getCurrentBlockSize() {
+    return currentBlockSize
+}
+
+export function updateGridSize () {
+    element.style.width = currentBlockSize * columns + MARGIN * 2 * columns + "px"
+    element.style.height = currentBlockSize * rows + MARGIN * 2 * rows + "px"
 }
