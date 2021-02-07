@@ -1,6 +1,6 @@
 # SpriteBuilder
 
-This is a tool to create sprite sheets.
+[SpriteBuilder](https://h0rn0chse.github.io/SpriteBuilder/) is a tool to create sprite sheets. The images are only saved within the browser cache.
 
 <img src="./docu/screenshot.png" title="Screenshot" />
 
