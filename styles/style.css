@@ -13,10 +13,11 @@ body {
     grid-template-areas: "top top" "side main";
 }
 
-#hidden > * {
+#hidden {
     display: none;
 }
 
+/*
 #hidden > canvas{
     display: inherit;
     position: fixed;
@@ -24,7 +25,7 @@ body {
     right: 0;
     z-index: 10;
     border: solid black;
-}
+}*/
 
 .top {
     grid-area: top;

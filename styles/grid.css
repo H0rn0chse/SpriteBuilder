@@ -8,7 +8,7 @@
 .empty-item {
     border-radius: 25%;
     text-align: center;
-    background: #000;
+    background: rgba(0,0,0,0.2);
     color: #fff;
 }
 

@@ -7,10 +7,10 @@ class _Grid {
         this.grid = null
         this.element = null
         // default values get overwritten by reset
-        this.rows = 4
-        this.columns = 4
+        this.rows = 6
+        this.columns = 6
         this.itemCount = 1
-        this.currentBlockSize = 32
+        this.currentBlockSize = 64
     }
 
     init (element) {
@@ -52,13 +52,13 @@ class _Grid {
     }
 
     reset () {
-        this.rows = 4
-        this.columns = 4
+        this.rows = 6
+        this.columns = 6
         this.itemCount = 1
         this.currentBlockSize = getBlockSize()
         this.removeAllItems()
         this.updateContainerSize()
-        this.addPlaceholder(16)
+        this.addPlaceholder(this.rows * this.columns)
     }
 
     removeAllItems() {
@@ -104,8 +104,9 @@ class _Grid {
             const item = ItemManager.createItem()
             item.classList.add("empty-item")
 
-            const itemContent = item.querySelector(".item-content")
-            itemContent.innerText = i + this.itemCount
+            // write number to see reordering
+            //const itemContent = item.querySelector(".item-content")
+            //itemContent.innerText = i + this.itemCount
 
             const index = Array.isArray(indexList) ? indexList[i] : -1
             this.grid.add(item, { layout: false, index: index })
