@@ -1,3 +1,5 @@
+import { ItemManager } from "./ItemManager.js";
+
 let fileHandler = null
 
 export function initImport () {
@@ -26,23 +28,16 @@ function addLoadFile () {
 export function importFileHandler (event) {
 
 	const files = event.target.files || {}
-	console.error("DoStuff", files)
-	return
 
 	Object.values(files).forEach(file => {
 		if (file) {
 			const fileName = file.name
 			const reader = new FileReader()
-			reader.onload = function () {
-				try {
-					const text = reader.result
-				}
-				catch (error){
-					console.log(error)
-					// err handling
-				}
+			reader.onload = evt => {
+				const src = evt.target.result;
+				ItemManager.addItem(src)
 			}
-			reader.readAsText(file, "utf-8")
+			reader.readAsDataURL(file)
 		}
 	})
 }

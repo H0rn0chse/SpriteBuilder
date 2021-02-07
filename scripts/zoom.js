@@ -1,4 +1,4 @@
-import { setDraggable } from "./grid.js";
+import { Grid } from "./Grid2.js";
 
 export function initZoom (element) {
     const pan = globalThis.panzoom(element, {
@@ -34,13 +34,13 @@ function addGrabbingHandler() {
         if (evt.ctrlKey) {
             globalThis.panning = true
             document.body.style.cursor = "panning"
-            setDraggable(false)
+            Grid.setDraggable(false)
         }
     })
     document.addEventListener("mouseup", evt => {
         if (globalThis.panning){
             globalThis.panning = false
-            setDraggable(true)
+            Grid.setDraggable(true)
         }
 
         if (evt.ctrlKey) {

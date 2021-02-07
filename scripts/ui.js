@@ -1,16 +1,16 @@
-import { addColumn, addRow, resetGrid } from "./grid.js";
+import { Grid } from "./Grid2.js";
 
 export function initUi () {
     document.querySelector("#addRow").addEventListener("click", evt => {
-        addRow()
+        Grid.addRow()
     })
 
     document.querySelector("#addColumn").addEventListener("click", evt => {
-        addColumn()
+        Grid.addColumn()
     })
 
     document.querySelector("#reset").addEventListener("click", evt => {
-        resetGrid()
+        Grid.reset()
     })
 }
 
