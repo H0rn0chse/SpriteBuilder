@@ -2,13 +2,16 @@ import { ItemManager } from "./ItemManager.js";
 import { getBlockSize } from "./ui.js";
 
 const MARGIN = 5
+const ROWS = 8
+const COLUMNS = 12
+
 class _Grid {
     constructor () {
         this.grid = null
         this.element = null
         // default values get overwritten by reset
-        this.rows = 6
-        this.columns = 6
+        this.rows = ROWS
+        this.columns = COLUMNS
         this.itemCount = 1
         this.currentBlockSize = 64
     }
@@ -21,9 +24,14 @@ class _Grid {
             dragPlaceholder: {
                 enabled: true
             },
+            dragStartPredicate: {
+                delay: 0
+            },
             dragSortPredicate: {
-                action: "swap",
-                migrateAction: "swap"
+                action: "move"
+            },
+            layout: {
+                fillGaps: true
             }
         })
 
@@ -52,8 +60,8 @@ class _Grid {
     }
 
     reset () {
-        this.rows = 6
-        this.columns = 6
+        this.rows = ROWS
+        this.columns = COLUMNS
         this.itemCount = 1
         this.currentBlockSize = getBlockSize()
         this.removeAllItems()
