@@ -2,8 +2,13 @@ import { Grid } from "./Grid.js";
 
 class _ItemManager {
     constructor () {
-        this.items = []
-        this.emptyItems = []
+        this.items = new Map()
+        this.emptyItems = new Map()
+    }
+
+    reset () {
+        this.items.clear()
+        this.emptyItems.clear()
     }
 
     addItem (src) {
@@ -18,7 +23,7 @@ class _ItemManager {
             const blockWidth = Math.ceil(width / layout.blockSize)
             const blockCount = blockWidth * blockHeight
 
-            if (this.emptyItems.length > blockCount) {
+            if (this.emptyItems.size > blockCount) {
                 item.style.marginBottom = (blockHeight) * layout.margin + "px"
                 item.style.marginTop = (blockHeight) * layout.margin + "px"
                 item.style.marginLeft = (blockWidth) * layout.margin + "px"
@@ -26,7 +31,15 @@ class _ItemManager {
                 item.style.width = blockWidth * layout.blockSize + "px"
                 item.style.height = blockHeight * layout.blockSize + "px"
 
-                const placeholder = this.emptyItems.splice(0, blockCount)
+                const placeholder = []
+                this.emptyItems.forEach((val, item) => {
+                    if (blockCount > 0) {
+                        blockCount -= 1
+                        placeholder.push(item)
+                        this.emptyItems.delete(item)
+                    }
+                })
+
                 Grid.removeItems(placeholder)
                 Grid.addItem(item)
                 Grid.updateLayout()
@@ -50,9 +63,9 @@ class _ItemManager {
         Grid.getContainer().appendChild(item)
 
         if (src) {
-            this.items.push(item)
+            this.items.set(item, true)
         } else {
-            this.emptyItems.push(item)
+            this.emptyItems.set(item, true)
         }
 
         return item

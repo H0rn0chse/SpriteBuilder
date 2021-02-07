@@ -61,7 +61,8 @@ class _Grid {
 
     removeAllItems() {
         const items = this.grid.getItems()
-        this.grid.remove(items, { layout: false, removeElements: true });
+        this.grid.remove(items, { layout: false, removeElements: true })
+        ItemManager.reset()
     }
 
     setDraggable (value) {
