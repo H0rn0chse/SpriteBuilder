@@ -1,3 +1,4 @@
+import { CanvasManager } from "./CanvasManager.js";
 import { Grid } from "./Grid.js";
 
 class _ItemManager {
@@ -21,9 +22,9 @@ class _ItemManager {
             const width = image.naturalWidth
             const blockHeight = Math.ceil(height / layout.blockSize)
             const blockWidth = Math.ceil(width / layout.blockSize)
-            const blockCount = blockWidth * blockHeight
+            let blockCount = blockWidth * blockHeight
 
-            if (this.emptyItems.size > blockCount) {
+            if (this.emptyItems.size >= blockCount) {
                 item.style.marginBottom = (blockHeight) * layout.margin + "px"
                 item.style.marginTop = (blockHeight) * layout.margin + "px"
                 item.style.marginLeft = (blockWidth) * layout.margin + "px"
@@ -80,6 +81,56 @@ class _ItemManager {
             itemContent.appendChild(image)
         }
         return itemContent
+    }
+
+    setSpacing (value) {
+        if (value) {
+            this.items.forEach((val, item) => {
+                item.classList.remove("item-save-margin")
+            })
+            this.emptyItems.forEach((val, item) => {
+                item.classList.remove("item-save-margin")
+            })
+        } else {
+            this.items.forEach((val, item) => {
+                item.classList.add("item-save-margin")
+            })
+            this.emptyItems.forEach((val, item) => {
+                item.classList.add("item-save-margin")
+            })
+        }
+    }
+
+    save () {
+        // remove margins
+        this.setSpacing(false)
+        Grid.updateContainerSize(true)
+        Grid.refreshAll()
+
+        const layout = Grid.getLayout()
+        const canvasWidth = layout.blockSize * layout.columns
+        const canvasHeight = layout.blockSize * layout.rows
+
+        const images = this._getImages()
+
+        // reset grid
+        this.setSpacing(true)
+        Grid.updateContainerSize()
+        Grid.refreshAll()
+
+        CanvasManager.reset()
+        CanvasManager.setSize(canvasWidth, canvasHeight)
+        CanvasManager.drawImages(images)
+    }
+
+    _getImages () {
+        const images = new Map()
+        this.items.forEach((val, item) => {
+            const image = item.querySelector("img")
+            const position = Grid.getItemPosition(item)
+            images.set(image, position)
+        })
+        return images
     }
 }
 

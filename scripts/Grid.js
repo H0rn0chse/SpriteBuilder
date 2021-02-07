@@ -40,6 +40,8 @@ class _Grid {
 
     getLayout () {
         return {
+            rows: this.rows,
+            columns: this.columns,
             blockSize: this.currentBlockSize,
             margin: MARGIN
         }
@@ -66,7 +68,7 @@ class _Grid {
     }
 
     setDraggable (value) {
-        this.grid.updateSettings({
+        this.grid.updateSettings({ //todo dev version
             dragEnabled: !!value
         })
     }
@@ -88,7 +90,7 @@ class _Grid {
 
     removeItems (elements) {
         this.itemCount -= elements.length
-        const items = this.grid.getItems((elements))
+        const items = this.grid.getItems(elements)
         this.grid.remove(items, { layout: false, removeElements: true });
     }
 
@@ -112,13 +114,30 @@ class _Grid {
         this.grid.layout()
     }
 
-    updateContainerSize () {
-        this.element.style.width = this.currentBlockSize * this.columns + MARGIN * 2 * this.columns + "px"
-        this.element.style.height = this.currentBlockSize * this.rows + MARGIN * 2 * this.rows + "px"
+    updateContainerSize (ignoreMargin = false) {
+        const margin = ignoreMargin ? 0 : MARGIN
+        this.element.style.width = this.currentBlockSize * this.columns + margin * 2 * this.columns + "px"
+        this.element.style.height = this.currentBlockSize * this.rows + margin * 2 * this.rows + "px"
     }
 
     updateLayout () {
         this.grid.layout()
+    }
+
+    refreshAll () {
+        const items = this.grid.getItems()
+
+        this.grid.hide(items, { instant: true })
+        this.grid.show(items, { instant: true, layout: "instant" })
+    }
+
+    getItemPosition (element) {
+        const item = this.grid.getItem(element)
+        return {
+            top: item.top,
+            left: item.left,
+        }
+        // return item && item.getPosition() //todo dev version
     }
 }
 

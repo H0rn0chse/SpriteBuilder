@@ -1,4 +1,5 @@
 import { Grid } from "./Grid.js";
+import { ItemManager } from "./ItemManager.js";
 
 export function initUi () {
     document.querySelector("#addRow").addEventListener("click", evt => {
@@ -14,7 +15,7 @@ export function initUi () {
     })
 
     document.querySelector("#save").addEventListener("click", evt => {
-        Grid.save()
+        ItemManager.save()
     })
 }
 

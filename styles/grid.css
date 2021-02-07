@@ -15,8 +15,12 @@
 .item {
     display: block;
     position: absolute;
-    margin: 5px;
     z-index: 1;
+    margin: 5px;
+}
+
+.item-save-margin {
+    margin: 0px !important;
 }
 
 .muuri-item-placeholder {
