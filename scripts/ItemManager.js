@@ -1,4 +1,5 @@
 import { CanvasManager } from "./CanvasManager.js";
+import { exportImage } from "./exportFile.js";
 import { Grid } from "./Grid.js";
 
 class _ItemManager {
@@ -121,6 +122,8 @@ class _ItemManager {
         CanvasManager.reset()
         CanvasManager.setSize(canvasWidth, canvasHeight)
         CanvasManager.drawImages(images)
+        const data = CanvasManager.getData()
+        exportImage(data, "spritesheet.png")
     }
 
     _getImages () {

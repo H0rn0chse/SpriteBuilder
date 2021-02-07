@@ -24,6 +24,10 @@ class _CanvasManager {
             this.ctx.drawImage(img, pos.left, pos.top);
         });
     }
+
+    getData () {
+        return this.canvas.toDataURL("image/png");
+    }
 }
 
 export const CanvasManager = new _CanvasManager()

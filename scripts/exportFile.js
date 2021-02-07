@@ -1,7 +1,6 @@
-export function exportFile (content, fileName) {
+export function exportImage (content, fileName) {
     const a = document.createElement("a")
-    const file = new Blob(content, {encoding: "utf-8", type:"utf-8"})
-    a.href = URL.createObjectURL(file)
+    a.href = content
     a.download = fileName
     a.click()
 }
