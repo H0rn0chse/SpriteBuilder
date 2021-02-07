@@ -1,6 +1,6 @@
 # SpriteBuilder
 
-[SpriteBuilder](https://h0rn0chse.github.io/SpriteBuilder/) is a tool to create sprite sheets. The images are only saved within the browser cache.
+[SpriteBuilder](https://h0rn0chse.github.io/SpriteBuilder/) is a tool to create spritesheets from sprites. The images are only saved within the browser cache.
 
 <img src="./docu/screenshot.png" title="Screenshot" />
 
@@ -14,15 +14,15 @@
 
 Hint: You can drag the grid around by pressing the Ctrl key.
 
-## Missing features
-
- * Dynamic grid enhancement after image drop
- * Removal of blocks, columns, rows
- * Layouting of partial blocks eg. centering
-
-# Libraries
+## Libraries
 
  * Grid: https://github.com/haltu/muuri
  * Drag: https://github.com/anvaka/panzoom
  * CSS: https://github.com/franciscop/picnic
  * Github-Corner: https://github.com/remarkablemark/github-corners
+
+## Missing features
+
+ * Dynamic grid enhancement after image drop
+ * Removal of blocks, columns, rows
+ * Layouting of partial blocks eg. centering
