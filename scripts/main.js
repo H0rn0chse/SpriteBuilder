@@ -1,5 +1,5 @@
 import { initDrag } from "./drop.js";
-import { Grid } from "./Grid.js/index.js";
+import { Grid } from "./Grid.js";
 import { initImport } from "./importFile.js";
 import { initUi } from "./ui.js";
 import { initZoom } from "./zoom.js";

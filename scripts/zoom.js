@@ -1,4 +1,4 @@
-import { Grid } from "./Grid.js/index.js";
+import { Grid } from "./Grid.js";
 
 export function initZoom (element) {
     const pan = globalThis.panzoom(element, {
