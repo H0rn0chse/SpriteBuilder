@@ -1,4 +1,4 @@
-import { Grid } from "./Grid2.js";
+import { Grid } from "./Grid.js/index.js";
 
 export function initUi () {
     document.querySelector("#addRow").addEventListener("click", evt => {
