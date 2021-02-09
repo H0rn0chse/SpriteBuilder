@@ -1,6 +1,6 @@
 import { CanvasManager } from "./CanvasManager.js";
 import { exportImage } from "./exportFile.js";
-import { Grid } from "./Grid.js";
+import { GridManager } from "./GridManager.js";
 
 class _ItemManager {
     constructor () {
@@ -18,7 +18,7 @@ class _ItemManager {
         const image = item.querySelector("img")
 
         image.onload = evt => {
-            const layout = Grid.getLayout()
+            const layout = GridManager.getLayout()
             const height = image.naturalHeight
             const width = image.naturalWidth
             const blockHeight = Math.ceil(height / layout.blockSize)
@@ -42,9 +42,9 @@ class _ItemManager {
                     }
                 })
 
-                Grid.removeItems(placeholder)
-                Grid.addItem(item)
-                Grid.updateLayout()
+                GridManager.removeItems(placeholder)
+                GridManager.addItem(item)
+                GridManager.updateLayout()
             } else {
                 item.style.display = "none"
             }
@@ -52,7 +52,7 @@ class _ItemManager {
     }
 
     createItem (src) {
-        const layout = Grid.getLayout()
+        const layout = GridManager.getLayout()
         const item = document.createElement("div")
         const itemContent = this._createItemContent(src)
 
@@ -62,7 +62,7 @@ class _ItemManager {
         item.style.height = layout.blockSize + "px"
 
         //Add to grid
-        Grid.getContainer().appendChild(item)
+        GridManager.getContainer().appendChild(item)
 
         if (src) {
             this.items.set(item, true)
@@ -105,10 +105,10 @@ class _ItemManager {
     save () {
         // remove margins
         this.setSpacing(false)
-        Grid.updateContainerSize(true)
-        Grid.refreshAll()
+        GridManager.updateContainerSize(true)
+        GridManager.refreshAll()
 
-        const layout = Grid.getLayout()
+        const layout = GridManager.getLayout()
         const canvasWidth = layout.blockSize * layout.columns
         const canvasHeight = layout.blockSize * layout.rows
 
@@ -116,8 +116,8 @@ class _ItemManager {
 
         // reset grid
         this.setSpacing(true)
-        Grid.updateContainerSize()
-        Grid.refreshAll()
+        GridManager.updateContainerSize()
+        GridManager.refreshAll()
 
         CanvasManager.reset()
         CanvasManager.setSize(canvasWidth, canvasHeight)
@@ -130,7 +130,7 @@ class _ItemManager {
         const images = new Map()
         this.items.forEach((val, item) => {
             const image = item.querySelector("img")
-            const position = Grid.getItemPosition(item)
+            const position = GridManager.getItemPosition(item)
             images.set(image, position)
         })
         return images

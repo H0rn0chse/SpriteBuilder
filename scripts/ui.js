@@ -1,17 +1,17 @@
-import { Grid } from "./Grid.js";
+import { GridManager } from "./GridManager.js";
 import { ItemManager } from "./ItemManager.js";
 
 export function initUi () {
     document.querySelector("#addRow").addEventListener("click", evt => {
-        Grid.addRow()
+        GridManager.addRow()
     })
 
     document.querySelector("#addColumn").addEventListener("click", evt => {
-        Grid.addColumn()
+        GridManager.addColumn()
     })
 
     document.querySelector("#reset").addEventListener("click", evt => {
-        Grid.reset()
+        GridManager.reset()
     })
 
     document.querySelector("#save").addEventListener("click", evt => {

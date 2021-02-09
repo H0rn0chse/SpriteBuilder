@@ -5,7 +5,7 @@ const MARGIN = 5
 const ROWS = 8
 const COLUMNS = 12
 
-class _Grid {
+class _GridManager {
     constructor () {
         this.grid = null
         this.element = null
@@ -150,4 +150,4 @@ class _Grid {
     }
 }
 
-export const Grid = new _Grid()
+export const GridManager = new _GridManager()
