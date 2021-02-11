@@ -1,4 +1,4 @@
-import { ItemManager } from "./ItemManager.js";
+import ItemManager from "./ItemManager.js";
 
 let fileHandler = null
 

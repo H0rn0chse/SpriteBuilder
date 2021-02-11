@@ -1,5 +1,5 @@
-import { GridManager } from "./GridManager.js";
-import { ItemManager } from "./ItemManager.js";
+import GridManager from "./GridManager.js";
+import ItemManager from "./ItemManager.js";
 
 export function initUi () {
     document.querySelector("#addRow").addEventListener("click", evt => {

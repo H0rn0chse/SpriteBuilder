@@ -1,4 +1,5 @@
-import { ItemManager } from "./ItemManager.js";
+import { Item } from "./Item.js";
+import ItemManager from "./ItemManager.js";
 import { getBlockSize } from "./ui.js";
 
 const MARGIN = 5
@@ -150,4 +151,5 @@ class _GridManager {
     }
 }
 
-export const GridManager = new _GridManager()
+globalThis.GridManager = new _GridManager()
+export default globalThis.GridManager

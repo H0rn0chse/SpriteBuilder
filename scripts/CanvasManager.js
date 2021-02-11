@@ -30,4 +30,5 @@ class _CanvasManager {
     }
 }
 
-export const CanvasManager = new _CanvasManager()
+globalThis.CanvasManager = new _CanvasManager()
+export default globalThis.CanvasManager

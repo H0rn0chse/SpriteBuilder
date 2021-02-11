@@ -1,7 +1,8 @@
-import { CanvasManager } from "./CanvasManager.js";
+import CanvasManager from "./CanvasManager.js";
 import { initDrag } from "./drop.js";
-import { GridManager } from "./GridManager.js";
+import GridManager from "./GridManager.js";
 import { initImport } from "./importFile.js";
+import { Item } from "./Item.js";
 import { initUi } from "./ui.js";
 import { initZoom } from "./zoom.js";
 

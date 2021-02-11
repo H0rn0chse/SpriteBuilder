@@ -1,4 +1,4 @@
-import { GridManager } from "./GridManager.js";
+import GridManager from "./GridManager.js";
 
 export function initZoom (element) {
     const pan = globalThis.panzoom(element, {

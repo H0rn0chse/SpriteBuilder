@@ -1,6 +1,8 @@
-import { CanvasManager } from "./CanvasManager.js";
+import CanvasManager from "./CanvasManager.js";
 import { exportImage } from "./exportFile.js";
-import { GridManager } from "./GridManager.js";
+import GridManager from "./GridManager.js";
+import { Item } from "./Item.js";
+import { getKeyByValue } from "./utils.js";
 
 class _ItemManager {
     constructor () {
@@ -137,4 +139,5 @@ class _ItemManager {
     }
 }
 
-export const ItemManager = new _ItemManager()
+globalThis.ItemManager = new _ItemManager()
+export default globalThis.ItemManager
