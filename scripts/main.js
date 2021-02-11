@@ -9,13 +9,21 @@ import { initZoom } from "./zoom.js";
 export function init() {
     initZoom(document.querySelector("#scene"))
 
-    GridManager.init(document.querySelector("#grid"))
-
     initDrag(document.querySelector("#dropArea"), document.querySelector("#addImage"))
-
-    CanvasManager.init(document.querySelector("#canvas"))
 
     initUi()
 
     initImport()
+
+    GridManager.init(document.querySelector("#grid"))
+
+    CanvasManager.init(document.querySelector("#canvas"))
+}
+
+export async function addItem (src) {
+    const item = new Item(src)
+
+    await ItemManager.addItem(item)
+    GridManager.updateContainerSize()
+    GridManager.updateLayout()
 }

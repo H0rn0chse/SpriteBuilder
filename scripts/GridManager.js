@@ -2,9 +2,15 @@ import { Item } from "./Item.js";
 import ItemManager from "./ItemManager.js";
 import { getBlockSize } from "./ui.js";
 
+// startup params
+const ROWS = 4 //8
+const COLS = 2 //12
 const MARGIN = 5
-const ROWS = 8
-const COLUMNS = 12
+
+// ROWS === HEIGHT
+// COLS === WIDTH
+
+let _margin = 5
 
 class _GridManager {
     constructor () {
@@ -12,8 +18,7 @@ class _GridManager {
         this.element = null
         // default values get overwritten by reset
         this.rows = ROWS
-        this.columns = COLUMNS
-        this.itemCount = 1
+        this.cols = COLS
         this.currentBlockSize = 64
     }
 
@@ -50,9 +55,9 @@ class _GridManager {
     getLayout () {
         return {
             rows: this.rows,
-            columns: this.columns,
+            cols: this.cols,
             blockSize: this.currentBlockSize,
-            margin: MARGIN
+            margin: _margin
         }
     }
 
@@ -60,14 +65,21 @@ class _GridManager {
         return this.element
     }
 
-    reset () {
+    async reset () {
         this.rows = ROWS
-        this.columns = COLUMNS
-        this.itemCount = 1
+        this.cols = COLS
         this.currentBlockSize = getBlockSize()
+
+        this.resetMargin()
         this.removeAllItems()
+        const items = ROWS * COLS
+        for (let i = 0; i < items; i++) {
+            const item = new Item()
+            await ItemManager.addItem(item, -1)
+        }
+
         this.updateContainerSize()
-        this.addPlaceholder(this.rows * this.columns)
+        this.updateLayout()
     }
 
     removeAllItems() {
@@ -82,56 +94,188 @@ class _GridManager {
         })
     }
 
-    addRow () {
-        this.rows += 1
-        this.updateContainerSize()
-        this.addPlaceholder(this.columns)
+    async extendRows (count) {
+        for (let i = 0; i < count; i++) {
+            for (let j = 0; j < GridManager.cols; j++) {
+                const item = new Item()
+                await ItemManager.addItem(item, -1)
+            }
+            this.rows += 1
+        }
     }
 
-    addColumn () {
-        const indexList = new Array(this.rows).fill(0).map((value, index) => {
-            return this.columns * (index + 1) + index
+    async extendColumns (count) {
+        for (let i = 0; i < count; i++) {
+            const indexList = await GridManager._getColumnIndexList()
+            for (let i = 0; i < indexList.length; i++) {
+                const item = new Item()
+                await ItemManager.addItem(item, i)
+            }
+            this.cols += 1
+        }
+    }
+
+    async _getColumnIndexList () {
+        // we need to fix the layout first
+        // otherwise the map is broken
+        await this.fixLayout()
+
+        const map = this._getItemMap()
+        return new Array(this.rows).fill(0).map((value, index) => {
+            return map[this.cols - 1][index].index + 1 + index
         })
-        this.columns += 1
-        this.updateContainerSize()
-        this.addPlaceholder(this.rows, indexList)
     }
 
-    removeItems (elements) {
-        this.itemCount -= elements.length
-        const items = this.grid.getItems(elements)
+    getImageInsertIndex () {
+
+    }
+
+    async fixLayout () {
+        const calcSize = this.getCalculatedSize()
+        const size = this.getActualSize()
+
+        // The layout is somehow broken
+        // TODO it might be safer to work with the area instead of the rows
+        if (calcSize.size !== size.size) {
+            const missingCount = size.size - calcSize.size
+
+            for (let i = 0; i < missingCount; i++) {
+                const item = new Item()
+                await ItemManager.addItem(item, -1)
+            }
+
+            this.cols = size.cols
+            this.rows = size.rows
+
+            this.updateLayout(true)
+        }
+    }
+
+    _getItemMap () {
+        const map = {}
+        for (let x = 0; x < this.cols; x++) {
+            map[x] = {}
+            for (let y = 0; y < this.rows; y++) {
+                map[x][y] = {
+                    index: null,
+                    item: null
+                }
+            }
+        }
+
+        const items = this.grid.getItems();
+        items.forEach((item, index) => {
+            this._getIndexList(item).forEach(pos => {
+                map[pos.x][pos.y].index = index
+                map[pos.x][pos.y].item = item
+            })
+        });
+        return map
+    }
+
+    _getIndexList (item) {
+        const indexList = []
+
+        // top/left index
+        const blockSize = this.getBlockSize()
+        const corner = {
+            x: Math.round(item.left) / blockSize,
+            y: Math.round(item.top) / blockSize,
+        }
+        indexList.push(corner)
+
+        // area size
+        const cols = Math.round(item.width) / this.currentBlockSize
+        const rows = Math.round(item.height) / this.currentBlockSize
+
+        for (let x = 0; x < cols; x++) {
+            for (let y = 0; y < rows; y++) {
+                if (x === 0 && y === 0) {
+                    continue
+                }
+                const point = {
+                    x: corner.x + x,
+                    y: corner.y + y
+                }
+                indexList.push(point)
+            }
+        }
+
+        return indexList
+    }
+
+    removeItems (items) {
         this.grid.remove(items, { layout: false, removeElements: true });
     }
 
-    addItem (element) {
-        this.grid.add(element, { layout: false, index: -1 })
-        this.itemCount += 1
+    /**
+     *
+     * @param {Item} item
+     * @param {*} index
+     */
+    addItem (item, index) {
+        return this.grid.add(item.domRef, { layout: false, index: index })[0]
     }
 
-    addPlaceholder (items, indexList) {
-        for(let i = 0; i < items; i++) {
-            const item = ItemManager.createItem()
-            item.classList.add("empty-item")
-
-            // write number to see reordering
-            //const itemContent = item.querySelector(".item-content")
-            //itemContent.innerText = i + this.itemCount
-
-            const index = Array.isArray(indexList) ? indexList[i] : -1
-            this.grid.add(item, { layout: false, index: index })
+    getItemSize (item) {
+        const width = Math.round(item.width) / this.currentBlockSize
+        const height = Math.round(item.height) / this.currentBlockSize
+        return {
+            width: width,
+            height: height,
+            size: Math.round(width * height)
         }
-        this.itemCount += items
-        this.grid.layout()
     }
 
-    updateContainerSize (ignoreMargin = false) {
-        const margin = ignoreMargin ? 0 : MARGIN
-        this.element.style.width = this.currentBlockSize * this.columns + margin * 2 * this.columns + "px"
-        this.element.style.height = this.currentBlockSize * this.rows + margin * 2 * this.rows + "px"
+    updateContainerSize () {
+        const size = this.getCalculatedSize()
+        this.element.style.width = size.width + "px"
+        this.element.style.height = size.height + "px"
     }
 
-    updateLayout () {
-        this.grid.layout()
+    /**
+     * The calculated size represents the size how it should be
+     * theoretically
+     */
+    getCalculatedSize () {
+        let blocks = 0;
+        this.grid.getItems().forEach(item => {
+            blocks += this.getItemSize(item).size
+        })
+        const blockSize = this.getBlockSize()
+        return {
+            width: this.cols * blockSize,
+            height: this.rows * blockSize,
+            cols: this.cols,
+            rows: this.rows,
+            size: Math.round(blocks)
+        }
+    }
+
+    /**
+     * The calculated size represents the size how it currently is
+     */
+    getActualSize () {
+        const blockSize = this.getBlockSize()
+        const width = this.element.offsetWidth
+        const height = this.element.offsetHeight
+        const rows = height / blockSize
+        const cols = width / blockSize
+        return {
+            width: width,
+            height: height,
+            cols: cols,
+            rows: rows,
+            size: cols * rows
+        }
+    }
+
+    getBlockSize () {
+        return parseInt(_margin, 10) * 2 + parseInt(this.currentBlockSize, 10)
+    }
+
+    updateLayout (instant = false) {
+        this.grid.layout({ instant: !!instant })
     }
 
     refreshAll () {
@@ -141,13 +285,12 @@ class _GridManager {
         this.grid.show(items, { instant: true, layout: "instant" })
     }
 
-    getItemPosition (element) {
-        const item = this.grid.getItem(element)
-        return {
-            top: item.top,
-            left: item.left,
-        }
-        // return item && item.getPosition() //todo dev version
+    setMargin (value) {
+        _margin = value
+    }
+
+    resetMargin () {
+        _margin = MARGIN
     }
 }
 

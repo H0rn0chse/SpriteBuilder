@@ -7,117 +7,92 @@ import { getKeyByValue } from "./utils.js";
 class _ItemManager {
     constructor () {
         this.items = new Map()
-        this.emptyItems = new Map()
+        this.placeholder = new Map()
     }
 
     reset () {
         this.items.clear()
-        this.emptyItems.clear()
+        this.placeholder.clear()
     }
 
-    addItem (src) {
-        const item = this.createItem(src)
-        const image = item.querySelector("img")
+    /**
+     * Adds an item to the grid. In case of an image item placeholder items get removed or added
+     * The basic strategy is to extend the grid vertically where ever it is possible
+     * @param {Item} item
+     */
+    async addItem (item, index = 0) {
+        await item.loaded.promise
 
-        image.onload = evt => {
-            const layout = GridManager.getLayout()
-            const height = image.naturalHeight
-            const width = image.naturalWidth
-            const blockHeight = Math.ceil(height / layout.blockSize)
-            const blockWidth = Math.ceil(width / layout.blockSize)
-            let blockCount = blockWidth * blockHeight
+        if (item.src){
+            const count = item.getSize()
 
-            if (this.emptyItems.size >= blockCount) {
-                item.style.marginBottom = (blockHeight) * layout.margin + "px"
-                item.style.marginTop = (blockHeight) * layout.margin + "px"
-                item.style.marginLeft = (blockWidth) * layout.margin + "px"
-                item.style.marginRight = (blockWidth) * layout.margin + "px"
-                item.style.width = blockWidth * layout.blockSize + "px"
-                item.style.height = blockHeight * layout.blockSize + "px"
+            // Extend the minimum width
+            const colDiff = item.cols - GridManager.cols
+            await GridManager.extendColumns(colDiff)
 
-                const placeholder = []
-                this.emptyItems.forEach((val, item) => {
-                    if (blockCount > 0) {
-                        blockCount -= 1
-                        placeholder.push(item)
-                        this.emptyItems.delete(item)
-                    }
-                })
+            const countDiff = count - this.placeholder.size
+            const rowDiff = Math.ceil(countDiff / GridManager.cols)
+            await GridManager.extendRows(rowDiff)
 
-                GridManager.removeItems(placeholder)
-                GridManager.addItem(item)
-                GridManager.updateLayout()
-            } else {
-                item.style.display = "none"
-            }
+            // now there should be enough placeholder available
+            const elements = this._removePlaceholder(count)
+            GridManager.removeItems(elements)
         }
-    }
 
-    createItem (src) {
-        const layout = GridManager.getLayout()
-        const item = document.createElement("div")
-        const itemContent = this._createItemContent(src)
+        // add the item to the grid
+        const element = GridManager.addItem(item, index)
 
-        item.appendChild(itemContent)
-        item.classList.add("item")
-        item.style.width = layout.blockSize + "px"
-        item.style.height = layout.blockSize + "px"
-
-        //Add to grid
-        GridManager.getContainer().appendChild(item)
-
-        if (src) {
-            this.items.set(item, true)
+        // save the muuri ref to the map
+        if (!item.src) {
+            this.placeholder.set(item, element)
         } else {
-            this.emptyItems.set(item, true)
+            this.items.set(item, element)
         }
-
-        return item
     }
 
-    _createItemContent(src) {
-        const itemContent = document.createElement("div")
-        itemContent.classList.add("item-content")
-        if (src) {
-            const image = document.createElement("img")
-            image.src = src
-            itemContent.appendChild(image)
+    _removePlaceholder (count) {
+        const removedElements = []
+        const elements = Array.from(this.placeholder.values()).sort((a, b) => {
+            const valA = a.top + a.left
+            const valB = b.top + b.left
+            return valA > valB
+        })
+
+        for (let i = 0; i < count; i++) {
+            const element = elements.splice(0, 1)[0]
+            const key = getKeyByValue(this.placeholder, element)
+            this.placeholder.delete(key)
+            removedElements.push(element)
         }
-        return itemContent
+
+        return removedElements
     }
 
-    setSpacing (value) {
-        if (value) {
-            this.items.forEach((val, item) => {
-                item.classList.remove("item-save-margin")
-            })
-            this.emptyItems.forEach((val, item) => {
-                item.classList.remove("item-save-margin")
-            })
-        } else {
-            this.items.forEach((val, item) => {
-                item.classList.add("item-save-margin")
-            })
-            this.emptyItems.forEach((val, item) => {
-                item.classList.add("item-save-margin")
-            })
-        }
+    setSpacing () {
+        this.items.forEach((val, item) => {
+            item.updateDimensions()
+        })
+        this.placeholder.forEach((val, item) => {
+            item.updateDimensions()
+        })
     }
 
     save () {
         // remove margins
-        this.setSpacing(false)
-        GridManager.updateContainerSize(true)
+        GridManager.setMargin(0)
+        this.setSpacing()
+        GridManager.updateContainerSize()
         GridManager.refreshAll()
 
         const layout = GridManager.getLayout()
-        const canvasWidth = layout.blockSize * layout.columns
+        const canvasWidth = layout.blockSize * layout.cols
         const canvasHeight = layout.blockSize * layout.rows
 
         const images = this._getImages()
 
         // reset grid
-        this.setSpacing(true)
+        GridManager.resetMargin()
+        this.setSpacing()
         GridManager.updateContainerSize()
         GridManager.refreshAll()
 
@@ -131,9 +106,13 @@ class _ItemManager {
     _getImages () {
         const images = new Map()
         this.items.forEach((val, item) => {
-            const image = item.querySelector("img")
-            const position = GridManager.getItemPosition(item)
-            images.set(image, position)
+            const position = {
+                top: val.top,
+                left: val.left
+            }
+            // item && item.getPosition() //todo dev version
+
+            images.set(item.imageRef, position)
         })
         return images
     }
