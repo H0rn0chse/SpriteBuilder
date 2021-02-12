@@ -69,8 +69,8 @@ class _GridManager {
     _updateExportSizeLabels () {
         const margin = document.querySelector("#exportMargin").value
         const blockSize = parseInt(margin, 10) * 2 + parseInt(this.currentBlockSize, 10)
-        document.querySelector("#width").innerText = `ExportWidth: ${this.rows * blockSize}px`
-        document.querySelector("#height").innerText = `ExportHeight: ${this.cols * blockSize}px`
+        document.querySelector("#width").innerText = `ExportWidth: ${this.cols * blockSize}px`
+        document.querySelector("#height").innerText = `ExportHeight: ${this.rows * blockSize}px`
     }
 
     getLayout () {
