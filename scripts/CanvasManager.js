@@ -20,8 +20,8 @@ class _CanvasManager {
     }
 
     drawImages (imageMap) {
-        imageMap.forEach((pos, img) => {
-            this.ctx.drawImage(img, pos.left, pos.top);
+        imageMap.forEach((metadata, img) => {
+            this.ctx.drawImage(img, metadata.left + metadata.marginLeft, metadata.top + metadata.marginTop);
         });
     }
 

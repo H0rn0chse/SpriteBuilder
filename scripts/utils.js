@@ -15,3 +15,7 @@ export function getKeyByValue (map, searchValue) {
     })
     return result
 }
+
+export function getGuid () {
+    return new Date().getTime()
+}

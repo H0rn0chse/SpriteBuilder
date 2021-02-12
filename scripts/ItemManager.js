@@ -1,5 +1,3 @@
-import CanvasManager from "./CanvasManager.js";
-import { exportImage } from "./exportFile.js";
 import GridManager from "./GridManager.js";
 import { Item } from "./Item.js";
 import { getKeyByValue } from "./utils.js";
@@ -88,13 +86,18 @@ class _ItemManager {
     getImages () {
         const images = new Map()
         this.items.forEach((element, item) => {
-            const position = {
+            const metadata = {
+                name: item.name,
                 top: element.top,
-                left: element.left
+                left: element.left,
+                marginTop: element.marginTop,
+                marginLeft: element.marginLeft,
+                width: item.imageRef.naturalWidth,
+                height: item.imageRef.naturalHeight
             }
             // item && item.getPosition() //todo dev version
 
-            images.set(item.imageRef, position)
+            images.set(item.imageRef, metadata)
         })
         return images
     }

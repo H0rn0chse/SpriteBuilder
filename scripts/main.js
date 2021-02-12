@@ -18,8 +18,8 @@ export function init() {
     CanvasManager.init(document.querySelector("#canvas"))
 }
 
-export async function addItem (src) {
-    const item = new Item(src)
+export async function addItem (src, name) {
+    const item = new Item(src, name)
 
     await ItemManager.addItem(item)
     GridManager.updateContainerSize()

@@ -1,4 +1,3 @@
-import ItemManager from "./ItemManager.js";
 import { addItem } from "./main.js";
 
 let fileHandler = null
@@ -36,7 +35,7 @@ export function importFileHandler (event) {
 			const reader = new FileReader()
 			reader.onload = evt => {
 				const src = evt.target.result;
-				addItem(src)
+				addItem(src, fileName)
 			}
 			reader.readAsDataURL(file)
 		}

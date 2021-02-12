@@ -1,9 +1,11 @@
 import { Deferred } from "./Deferred.js";
+import { getGuid } from "./utils.js";
 
 globalThis.itemCount = 0
 
 export class Item {
-    constructor (src) {
+    constructor (src, name) {
+        this.name = name || getGuid()
         this.src = src
         this.rows = 1
         this.cols = 1
