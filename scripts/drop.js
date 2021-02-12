@@ -1,4 +1,4 @@
-import { importFile, importFileHandler } from "./importFile.js";
+import { importImage, importImageHandler } from "./importFile.js";
 
 let dragArea
 
@@ -14,7 +14,7 @@ export function initDrag (area, button) {
     dragArea.addEventListener("drop", handleDrop.bind(this))
     dragArea.addEventListener("dragover", handleDragOver.bind(this))
 
-    button.addEventListener("click", importFile)
+    button.addEventListener("click", importImage)
 }
 
 const lastHover = {}
@@ -74,5 +74,5 @@ function handleDrop (evt) {
         }
     }
 
-    importFileHandler(eventOut)
+    importImageHandler(eventOut)
 }

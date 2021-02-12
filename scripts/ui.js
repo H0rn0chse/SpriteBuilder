@@ -4,6 +4,7 @@ import CanvasManager from "./CanvasManager.js";
 import { exportImage, exportJson } from "./exportFile.js";
 import ZoomManager from "./ZoomManager.js";
 import { getGuid } from "./utils.js";
+import { importFile } from "./importFile.js";
 
 export function initUi () {
     document.querySelector("#addRow").addEventListener("click", async evt => {
@@ -27,6 +28,7 @@ export function initUi () {
     document.querySelector("#saveSpritesheet").addEventListener("click", saveSpritesheet)
     document.querySelector("#saveLayout").addEventListener("click", saveLayout)
     document.querySelector("#export").addEventListener("click", saveLayout.bind(null, true))
+    document.querySelector("#import").addEventListener("click", importFile)
 }
 
 export function getBlockSize () {
@@ -93,5 +95,19 @@ function saveLayout (saveImageData = false) {
         }
     })
 
-    exportJson(layoutData, "layout.json")
+    const fileName = saveImageData ? "config.json" : "layout.json"
+
+    exportJson(layoutData, fileName)
+}
+
+export function importConfiguration (json, fileName) {
+    let config = null
+    try {
+        config = JSON.parse(json)
+    } catch (err) {
+        console.error(err)
+        return
+    }
+
+    debugger
 }
