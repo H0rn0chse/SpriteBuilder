@@ -23,10 +23,10 @@ export function initUi () {
         ZoomManager.reset()
     })
 
-    document.querySelector("#save").addEventListener("click", saveAsSpritesheet)
+    document.querySelector("#saveSpritesheet").addEventListener("click", saveSpritesheet)
 }
 
-function saveAsSpritesheet () {
+function saveSpritesheet () {
     // set margins
     const margin = document.querySelector("#exportMargin").value
     GridManager.setMargin(margin)

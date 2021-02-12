@@ -9,3 +9,7 @@
 .buttonBar .numberInput {
     max-width: 5em;
 }
+
+.labelText {
+    cursor: default;
+}

@@ -7,11 +7,11 @@ import { initUi } from "./ui.js";
 import ZoomManager from "./ZoomManager.js";
 
 export function init() {
-    initDrag(document.querySelector("#dropArea"), document.querySelector("#addImage"))
-
     initUi()
 
     initImport()
+
+    initDrag(document.querySelector("#dropArea"), document.querySelector("#addImage"))
 
     ZoomManager.init(document.querySelector("#scene"))
     GridManager.init(document.querySelector("#grid"))

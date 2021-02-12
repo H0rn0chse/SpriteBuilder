@@ -49,7 +49,28 @@ class _GridManager {
             globalThis.dragging = false
         })
 
+        this.grid.on("layoutEnd", evt => {
+            this._updateCurrentSizeLabels()
+            this._updateExportSizeLabels()
+        })
+
+        document.querySelector("#exportMargin").addEventListener("change", evt => {
+            this._updateExportSizeLabels()
+        })
+
         this.reset()
+    }
+
+    _updateCurrentSizeLabels () {
+        document.querySelector("#rows").innerText = `No of rows: ${this.rows}`
+        document.querySelector("#cols").innerText = `No of columns: ${this.cols}`
+    }
+
+    _updateExportSizeLabels () {
+        const margin = document.querySelector("#exportMargin").value
+        const blockSize = parseInt(margin, 10) * 2 + parseInt(this.currentBlockSize, 10)
+        document.querySelector("#width").innerText = `ExportWidth: ${this.rows * blockSize}px`
+        document.querySelector("#height").innerText = `ExportHeight: ${this.cols * blockSize}px`
     }
 
     getLayout () {
