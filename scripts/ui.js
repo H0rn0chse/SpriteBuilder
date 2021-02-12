@@ -26,15 +26,20 @@ export function initUi () {
 
     document.querySelector("#saveSpritesheet").addEventListener("click", saveSpritesheet)
     document.querySelector("#saveLayout").addEventListener("click", saveLayout)
+    document.querySelector("#export").addEventListener("click", saveLayout.bind(null, true))
 }
 
 export function getBlockSize () {
     return document.querySelector("#blockSize").value;
 }
 
+export function getSpacing () {
+    return document.querySelector("#exportMargin").value;
+}
+
 function saveSpritesheet () {
     // set margins
-    const margin = document.querySelector("#exportMargin").value
+    const margin = getSpacing()
     GridManager.setMargin(margin)
 
     const gridSize = GridManager.getActualSize()
@@ -51,9 +56,9 @@ function saveSpritesheet () {
     exportImage(data, "spritesheet.png")
 }
 
-function saveLayout () {
+function saveLayout (saveImageData = false) {
     // set margins
-    const margin = document.querySelector("#exportMargin").value
+    const margin = getSpacing()
     GridManager.setMargin(margin)
 
     const images = ItemManager.getImages()
@@ -61,7 +66,15 @@ function saveLayout () {
     GridManager.resetMargin(margin)
 
     const layoutData = {
-        images: {}
+        metadata: {},
+        sprites: {}
+    }
+
+    if (saveImageData) {
+        const layout = GridManager.getLayout()
+        layoutData.metadata.margin = layout.margin
+        layoutData.metadata.blockSize = layout.blockSize
+        layoutData.metadata.spacing = getSpacing()
     }
 
     images.forEach((metadata, image) => {
@@ -73,6 +86,10 @@ function saveLayout () {
             y: metadata.top + metadata.marginTop,
             w: metadata.width,
             h: metadata.height
+        }
+        if (saveImageData) {
+            layoutData.sprites[metadata.name].image = image.src
+            layoutData.sprites[metadata.name].index = metadata.index
         }
     })
 

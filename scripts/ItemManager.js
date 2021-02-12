@@ -87,6 +87,7 @@ class _ItemManager {
         const images = new Map()
         this.items.forEach((element, item) => {
             const metadata = {
+                index: GridManager.getItemIndex(item),
                 name: item.name,
                 top: element.top,
                 left: element.left,

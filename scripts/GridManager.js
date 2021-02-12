@@ -1,6 +1,6 @@
 import { Item } from "./Item.js";
 import ItemManager from "./ItemManager.js";
-import { getBlockSize } from "./ui.js";
+import { getBlockSize, getSpacing } from "./ui.js";
 
 // startup params
 const ROWS = 5
@@ -67,7 +67,7 @@ class _GridManager {
     }
 
     _updateExportSizeLabels () {
-        const margin = document.querySelector("#exportMargin").value
+        const margin = getSpacing()
         const blockSize = parseInt(margin, 10) * 2 + parseInt(this.currentBlockSize, 10)
         document.querySelector("#width").innerText = `ExportWidth: ${this.cols * blockSize}px`
         document.querySelector("#height").innerText = `ExportHeight: ${this.rows * blockSize}px`
@@ -161,8 +161,9 @@ class _GridManager {
         return indexChanged ? index + 1 : 0
     }
 
-    getImageInsertIndex () {
-
+    getItemIndex(item) {
+        const items = this.grid.getItems()
+        return items.indexOf(item)
     }
 
     async fixLayout () {
