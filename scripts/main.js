@@ -4,19 +4,17 @@ import GridManager from "./GridManager.js";
 import { initImport } from "./importFile.js";
 import { Item } from "./Item.js";
 import { initUi } from "./ui.js";
-import { initZoom } from "./zoom.js";
+import ZoomManager from "./ZoomManager.js";
 
 export function init() {
-    initZoom(document.querySelector("#scene"))
-
     initDrag(document.querySelector("#dropArea"), document.querySelector("#addImage"))
 
     initUi()
 
     initImport()
 
+    ZoomManager.init(document.querySelector("#scene"))
     GridManager.init(document.querySelector("#grid"))
-
     CanvasManager.init(document.querySelector("#canvas"))
 }
 

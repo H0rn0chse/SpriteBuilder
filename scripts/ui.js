@@ -2,6 +2,7 @@ import GridManager from "./GridManager.js";
 import ItemManager from "./ItemManager.js";
 import CanvasManager from "./CanvasManager.js";
 import { exportImage } from "./exportFile.js";
+import ZoomManager from "./ZoomManager.js";
 
 export function initUi () {
     document.querySelector("#addRow").addEventListener("click", async evt => {
@@ -19,6 +20,7 @@ export function initUi () {
     document.querySelector("#reset").addEventListener("click", evt => {
         globalThis.itemCount = 0
         GridManager.reset()
+        ZoomManager.reset()
     })
 
     document.querySelector("#save").addEventListener("click", saveAsSpritesheet)
