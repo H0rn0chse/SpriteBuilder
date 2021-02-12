@@ -3,8 +3,8 @@ import ItemManager from "./ItemManager.js";
 import { getBlockSize } from "./ui.js";
 
 // startup params
-const ROWS = 4 //8
-const COLS = 2 //12
+const ROWS = 5
+const COLS = 8
 const MARGIN = 5
 
 // ROWS === HEIGHT
