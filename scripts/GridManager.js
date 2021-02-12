@@ -109,7 +109,7 @@ class _GridManager {
             const indexList = await GridManager._getColumnIndexList()
             for (let i = 0; i < indexList.length; i++) {
                 const item = new Item()
-                await ItemManager.addItem(item, i)
+                await ItemManager.addItem(item, indexList[i])
             }
             this.cols += 1
         }
@@ -124,6 +124,20 @@ class _GridManager {
         return new Array(this.rows).fill(0).map((value, index) => {
             return map[this.cols - 1][index].index + 1 + index
         })
+    }
+
+    getNewItemIndex () {
+        const items = this.grid.getItems()
+        let indexChanged = false
+        const index = items.reduce((acc, item, index) => {
+            const isPlaceholder = ItemManager.isPlaceholder(item)
+            if (!isPlaceholder && acc < index) {
+                indexChanged = true
+                return index
+            }
+            return acc
+        }, 0)
+        return indexChanged ? index + 1 : 0
     }
 
     getImageInsertIndex () {
@@ -287,10 +301,13 @@ class _GridManager {
 
     setMargin (value) {
         _margin = value
+        ItemManager.updateAllItemDimensions()
+        GridManager.updateContainerSize()
+        GridManager.refreshAll()
     }
 
     resetMargin () {
-        _margin = MARGIN
+        this.setMargin(MARGIN)
     }
 }
 

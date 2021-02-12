@@ -6,7 +6,9 @@ import { getKeyByValue } from "./utils.js";
 
 class _ItemManager {
     constructor () {
+        // Item : MuuriItem
         this.items = new Map()
+        // Item : MuuriItem
         this.placeholder = new Map()
     }
 
@@ -37,6 +39,7 @@ class _ItemManager {
             // now there should be enough placeholder available
             const elements = this._removePlaceholder(count)
             GridManager.removeItems(elements)
+            index = GridManager.getNewItemIndex()
         }
 
         // add the item to the grid
@@ -68,7 +71,12 @@ class _ItemManager {
         return removedElements
     }
 
-    setSpacing () {
+    isPlaceholder (element) {
+        const item = getKeyByValue(this.placeholder, element)
+        return !!item
+    }
+
+    updateAllItemDimensions () {
         this.items.forEach((val, item) => {
             item.updateDimensions()
         })
@@ -77,38 +85,12 @@ class _ItemManager {
         })
     }
 
-    save () {
-        // remove margins
-        GridManager.setMargin(0)
-        this.setSpacing()
-        GridManager.updateContainerSize()
-        GridManager.refreshAll()
-
-        const layout = GridManager.getLayout()
-        const canvasWidth = layout.blockSize * layout.cols
-        const canvasHeight = layout.blockSize * layout.rows
-
-        const images = this._getImages()
-
-        // reset grid
-        GridManager.resetMargin()
-        this.setSpacing()
-        GridManager.updateContainerSize()
-        GridManager.refreshAll()
-
-        CanvasManager.reset()
-        CanvasManager.setSize(canvasWidth, canvasHeight)
-        CanvasManager.drawImages(images)
-        const data = CanvasManager.getData()
-        exportImage(data, "spritesheet.png")
-    }
-
-    _getImages () {
+    getImages () {
         const images = new Map()
-        this.items.forEach((val, item) => {
+        this.items.forEach((element, item) => {
             const position = {
-                top: val.top,
-                left: val.left
+                top: element.top,
+                left: element.left
             }
             // item && item.getPosition() //todo dev version
 
