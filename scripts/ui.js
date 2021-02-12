@@ -65,10 +65,10 @@ function saveLayout () {
     }
 
     images.forEach((metadata, image) => {
-        if (layoutData.images[metadata.name]) {
+        if (layoutData.sprites[metadata.name]) {
             metadata.name = getGuid()
         }
-        layoutData.images[metadata.name] = {
+        layoutData.sprites[metadata.name] = {
             x: metadata.left + metadata.marginLeft,
             y: metadata.top + metadata.marginTop,
             w: metadata.width,
