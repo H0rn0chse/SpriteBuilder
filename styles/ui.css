@@ -2,10 +2,10 @@
     padding-left: 0.5em;
 }
 
-#buttonBar > * {
+.buttonBar > * {
     margin-left: 1em;
 }
 
-#buttonBar .numberInput {
+.buttonBar .numberInput {
     max-width: 5em;
 }

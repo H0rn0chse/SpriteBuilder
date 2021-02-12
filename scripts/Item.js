@@ -66,10 +66,10 @@ export class Item {
     updateDimensions () {
         const layout = GridManager.getLayout()
 
-        this.domRef.style.marginBottom = this.rows * layout.margin + "px"
+        this.domRef.style.marginBottom = 2 * this.rows * layout.margin + "px"
         this.domRef.style.marginTop = this.rows * layout.margin + "px"
-        this.domRef.style.marginLeft = this.cols * layout.margin + "px"
         this.domRef.style.marginRight = this.cols * layout.margin + "px"
+        this.domRef.style.marginLeft = this.cols * layout.margin + "px"
         this.domRef.style.width = this.cols * layout.blockSize + "px"
         this.domRef.style.height = this.rows * layout.blockSize + "px"
     }

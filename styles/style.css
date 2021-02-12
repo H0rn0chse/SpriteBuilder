@@ -9,7 +9,7 @@ body {
     width: 100vw;
     display: grid;
     grid-template-columns: 15em auto;
-    grid-template-rows: 10em auto;
+    grid-template-rows: 13em auto;
     grid-template-areas: "top top" "side main";
 }
 

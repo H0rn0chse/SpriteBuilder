@@ -26,11 +26,11 @@ export function initUi () {
 
 function saveAsSpritesheet () {
     // set margins
-    GridManager.setMargin(50)
+    const margin = document.querySelector("#exportMargin").value
+    GridManager.setMargin(margin)
 
     const gridSize = GridManager.getActualSize()
     const images = ItemManager.getImages()
-    debugger
 
     // reset margin
     GridManager.resetMargin()
