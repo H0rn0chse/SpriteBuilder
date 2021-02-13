@@ -147,4 +147,5 @@ export async function importConfiguration (json, fileName) {
     GridManager.updateLayout()
     GridManager.updateContainerSize()
     GridManager.fixLayout()
+    ZoomManager.reset()
 }
