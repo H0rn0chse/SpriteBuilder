@@ -16,6 +16,7 @@ export function getKeyByValue (map, searchValue) {
     return result
 }
 
+let guid = new Date().getTime()
 export function getGuid () {
-    return new Date().getTime()
+    return guid++
 }

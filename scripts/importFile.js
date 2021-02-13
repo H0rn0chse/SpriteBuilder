@@ -7,11 +7,19 @@ export function initImport () {
 	fileHandler = addLoadFile()
 }
 
-export function importFile () {
+export function importJson () {
 	fileHandler.value = ""
 	fileHandler.setAttribute("accept", ".json")
 	fileHandler.removeAttribute("multiple")
-	fileHandler.onchange = importFileHandler
+	fileHandler.onchange = importJsonHandler
+	fileHandler.click()
+}
+
+export function importZip () {
+	fileHandler.value = ""
+	fileHandler.setAttribute("accept", ".zip")
+	fileHandler.removeAttribute("multiple")
+	fileHandler.onchange = importZipHandler
 	fileHandler.click()
 }
 
@@ -33,7 +41,7 @@ function addLoadFile () {
 	return fileHandler
 }
 
-export function importFileHandler (event) {
+export function importJsonHandler (event) {
 	const file = event.target.files[0]
 
 	if (file) {
@@ -44,6 +52,23 @@ export function importFileHandler (event) {
 			importConfig(json, fileName)
 		}
 		reader.readAsText(file)
+	}
+}
+
+export function importZipHandler (event) {
+	const file = event.target.files[0]
+
+	if (file) {
+		const fileName = file.name
+		const reader = new FileReader()
+		reader.onload = async evt => {
+			const data = evt.target.result;
+			const zip = new JSZip();
+			await zip.loadAsync(data)
+			const json = await zip.file("config.json").async("string")
+			importConfig(json, fileName)
+		}
+		reader.readAsArrayBuffer(file)
 	}
 }
 

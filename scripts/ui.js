@@ -4,7 +4,7 @@ import CanvasManager from "./CanvasManager.js";
 import { exportText, exportBlob } from "./exportFile.js";
 import ZoomManager from "./ZoomManager.js";
 import { getGuid } from "./utils.js";
-import { importFile } from "./importFile.js";
+import { importJson, importZip } from "./importFile.js";
 import { Item } from "./Item.js";
 
 export function initUi () {
@@ -41,11 +41,11 @@ export function initUi () {
         exportText(file.content, file.name)
     })
 
-    document.querySelector("#import").addEventListener("click", importFile)
+    document.querySelector("#import").addEventListener("click", importJson)
 
     document.querySelector("#exportZip").addEventListener("click", saveZip)
 
-    document.querySelector("#importZip").addEventListener("click", importFile)
+    document.querySelector("#importZip").addEventListener("click", importZip)
 }
 
 export function getBlockSize () {
