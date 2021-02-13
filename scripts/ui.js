@@ -8,6 +8,12 @@ import { importJson, importZip } from "./importFile.js";
 import { Item } from "./Item.js";
 
 export function initUi () {
+    document.querySelector("#reset").addEventListener("click", evt => {
+        globalThis.itemCount = 0
+        GridManager.reset()
+        ZoomManager.reset()
+    })
+
     document.querySelector("#addRow").addEventListener("click", async evt => {
         await GridManager.extendRows(1)
         GridManager.updateContainerSize()
@@ -20,11 +26,7 @@ export function initUi () {
         GridManager.updateLayout()
     })
 
-    document.querySelector("#reset").addEventListener("click", evt => {
-        globalThis.itemCount = 0
-        GridManager.reset()
-        ZoomManager.reset()
-    })
+    document.querySelector("#fillGaps").addEventListener("click", GridManager.fixLayout.bind(GridManager))
 
     document.querySelector("#saveSpritesheet").addEventListener("click", async evt => {
         const file = await getSpritesheetData()
