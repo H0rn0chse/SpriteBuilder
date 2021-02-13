@@ -1,3 +1,5 @@
+import { Deferred } from "./Deferred.js";
+
 class _CanvasManager {
     constructor () {
         this.canvas = null
@@ -25,8 +27,10 @@ class _CanvasManager {
         });
     }
 
-    getData () {
-        return this.canvas.toDataURL("image/png");
+    async getData () {
+        const blob = new Deferred()
+        this.canvas.toBlob(blob.resolve, "image/png", 1);
+        return blob.promise
     }
 }
 

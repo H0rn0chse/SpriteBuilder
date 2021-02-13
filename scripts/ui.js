@@ -1,7 +1,7 @@
 import GridManager from "./GridManager.js";
 import ItemManager from "./ItemManager.js";
 import CanvasManager from "./CanvasManager.js";
-import { exportImage, exportJson } from "./exportFile.js";
+import { exportImage, exportText, exportBlob } from "./exportFile.js";
 import ZoomManager from "./ZoomManager.js";
 import { getGuid } from "./utils.js";
 import { importFile } from "./importFile.js";
@@ -26,10 +26,26 @@ export function initUi () {
         ZoomManager.reset()
     })
 
-    document.querySelector("#saveSpritesheet").addEventListener("click", saveSpritesheet)
-    document.querySelector("#saveLayout").addEventListener("click", saveLayout)
-    document.querySelector("#export").addEventListener("click", saveLayout.bind(null, true))
+    document.querySelector("#saveSpritesheet").addEventListener("click", async evt => {
+        const file = await getSpritesheetData()
+        exportBlob(file.content, file.name)
+    })
+
+    document.querySelector("#saveLayout").addEventListener("click", evt => {
+        const file = getLayoutData()
+        exportText(file.content, file.name)
+    })
+
+    document.querySelector("#export").addEventListener("click", evt => {
+        const file = getLayoutData(true)
+        exportText(file.content, file.name)
+    })
+
     document.querySelector("#import").addEventListener("click", importFile)
+
+    document.querySelector("#exportZip").addEventListener("click", saveZip)
+
+    document.querySelector("#importZip").addEventListener("click", importFile)
 }
 
 export function getBlockSize () {
@@ -48,7 +64,7 @@ function setSpacing (value) {
     return document.querySelector("#exportMargin").value = value;
 }
 
-function saveSpritesheet () {
+async function getSpritesheetData () {
     // set margins
     const margin = getSpacing()
     GridManager.setMargin(margin)
@@ -63,11 +79,14 @@ function saveSpritesheet () {
     CanvasManager.reset()
     CanvasManager.setSize(gridSize.width, gridSize.height)
     CanvasManager.drawImages(images)
-    const data = CanvasManager.getData()
-    exportImage(data, "spritesheet.png")
+    const data = await CanvasManager.getData()
+    return {
+        name: "spritesheet.png",
+        content: data
+    }
 }
 
-function saveLayout (saveImageData = false) {
+function getLayoutData (saveImageData = false) {
     // set margins
     const margin = getSpacing()
     GridManager.setMargin(margin)
@@ -107,12 +126,29 @@ function saveLayout (saveImageData = false) {
         }
     })
 
-    const fileName = saveImageData ? "config.json" : "layout.json"
-
-    exportJson(layoutData, fileName)
+    return {
+        name: saveImageData ? "config.json" : "layout.json",
+        content: JSON.stringify(layoutData, null, 2)
+    }
 }
 
-export async function importConfiguration (json, fileName) {
+async function saveZip () {
+    const zip = new JSZip();
+
+    const spritesheet = await getSpritesheetData()
+    zip.file(spritesheet.name, spritesheet.content)
+
+    const layoutData = getLayoutData()
+    zip.file(layoutData.name, layoutData.content)
+
+    const configData = getLayoutData(true)
+    zip.file(configData.name, configData.content)
+
+    const blob = await zip.generateAsync({type:"blob"})
+    exportBlob(blob, "data.zip")
+}
+
+export async function importConfig (json, fileName) {
     let config = null
     try {
         config = JSON.parse(json)

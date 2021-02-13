@@ -17,6 +17,10 @@ body {
     display: none;
 }
 
+.hidden {
+    display: none;
+}
+
 /*
 #hidden > canvas{
     display: inherit;

@@ -11,6 +11,7 @@
         <script src="https://unpkg.com/panzoom@9.4.0/dist/panzoom.min.js"></script>
         <!--<script src="https://cdn.jsdelivr.net/npm/muuri@0.9.3/dist/muuri.min.js"></script>-->
         <script src="./libs/muuri.min.js"></script>
+        <script src="./libs/jszip.min.js"></script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic">
     </head>
     <script type="module">
@@ -32,10 +33,12 @@
                 </div>
                 <div class="buttonBar" class="flexRow">
                     <label>ExportSpacing: <input class="numberInput" id="exportMargin" type="number" value="0"></input></label>
-                    <button id="saveSpritesheet">Save Spritesheet</button>
-                    <button id="saveLayout">Save Layout</button>
-                    <button id="export">Export</button>
-                    <button id="import">Import</button>
+                    <button id="saveSpritesheet" class="hidden">Save Spritesheet</button>
+                    <button id="saveLayout" class="hidden">Save Layout</button>
+                    <button id="export" class="hidden">Export</button>
+                    <button id="import" class="hidden">Import</button>
+                    <button id="exportZip">Export</button>
+                    <button id="importZip">Import</button>
                     <label id="width" class="labelText"></label>
                     <label id="height" class="labelText"></label>
                 </div>

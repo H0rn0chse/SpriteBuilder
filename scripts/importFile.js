@@ -1,5 +1,5 @@
 import { addItem } from "./main.js";
-import { importConfiguration } from "./ui.js";
+import { importConfig } from "./ui.js";
 
 let fileHandler = null
 
@@ -41,7 +41,7 @@ export function importFileHandler (event) {
 		const reader = new FileReader()
 		reader.onload = evt => {
 			const json = evt.target.result;
-			importConfiguration(json, fileName)
+			importConfig(json, fileName)
 		}
 		reader.readAsText(file)
 	}
