@@ -1,7 +1,7 @@
 import GridManager from "./GridManager.js";
 import ItemManager from "./ItemManager.js";
 import CanvasManager from "./CanvasManager.js";
-import { exportImage, exportText, exportBlob } from "./exportFile.js";
+import { exportText, exportBlob } from "./exportFile.js";
 import ZoomManager from "./ZoomManager.js";
 import { getGuid } from "./utils.js";
 import { importFile } from "./importFile.js";
