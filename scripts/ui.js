@@ -28,6 +28,12 @@ export function initUi () {
 
     document.querySelector("#fillGaps").addEventListener("click", GridManager.fixLayout.bind(GridManager))
 
+    document.querySelector("#cropEdges").addEventListener("click", evt => {
+        GridManager.cropEdges()
+        GridManager.updateContainerSize()
+        GridManager.updateLayout()
+    })
+
     document.querySelector("#saveSpritesheet").addEventListener("click", async evt => {
         const file = await getSpritesheetData()
         exportBlob(file.content, file.name)

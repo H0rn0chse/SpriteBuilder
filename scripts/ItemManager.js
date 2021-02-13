@@ -2,11 +2,31 @@ import GridManager from "./GridManager.js";
 import { Item } from "./Item.js";
 import { getKeyByValue } from "./utils.js";
 
+/**
+ * MuuriItem
+ * @typedef {Object} MuuriItem
+ */
+
+/**
+ * Item
+ * @typedef {Object} Item
+ */
+
+globalThis.itemCount = 0
+
+/**
+ * @class
+ * @constructor
+ */
 class _ItemManager {
     constructor () {
-        // Item : MuuriItem
+        /**
+         * @type {Map<Item, MuuriItem>}
+         */
         this.items = new Map()
-        // Item : MuuriItem
+        /**
+         * @type {Map<Item, MuuriItem>}
+         */
         this.placeholder = new Map()
     }
 
@@ -19,6 +39,7 @@ class _ItemManager {
      * Adds an item to the grid. In case of an image item placeholder items get removed or added
      * The basic strategy is to extend the grid vertically where ever it is possible
      * @param {Item} item
+     * @param {number} [index]
      */
     async addItem (item, index = 0) {
         await item.loaded.promise
@@ -35,22 +56,26 @@ class _ItemManager {
             await GridManager.extendRows(rowDiff)
 
             // now there should be enough placeholder available
-            const elements = this._removePlaceholder(count)
-            GridManager.removeItems(elements)
+            const muuriItems = this._removePlaceholders(count)
+            GridManager.removeItems(muuriItems)
             index = GridManager.getNewItemIndex()
         }
 
         // add the item to the grid
-        const element = GridManager.addItem(item, index)
+        const muuriItem = GridManager.addItem(item, index)
 
         // save the muuri ref to the map
         if (!item.src) {
-            this.placeholder.set(item, element)
+            this.placeholder.set(item, muuriItem)
         } else {
-            this.items.set(item, element)
+            this.items.set(item, muuriItem)
         }
     }
 
+    /**
+     * @param {Item} item
+     * @param {number} [index]
+     */
     async importItem (item, index = 0) {
         await item.loaded.promise
 
@@ -63,60 +88,78 @@ class _ItemManager {
         }
 
         // add the item to the grid
-        const element = GridManager.addItem(item, index)
+        const muuriItem = GridManager.addItem(item, index)
 
         // save the muuri ref to the map
         if (!item.src) {
-            this.placeholder.set(item, element)
+            this.placeholder.set(item, muuriItem)
         } else {
-            this.items.set(item, element)
+            this.items.set(item, muuriItem)
         }
     }
 
-    _removePlaceholder (count) {
+    /**
+     * @param {MuuriItem} muuriItem The MuuriItem
+     */
+    removeItem (muuriItem) {
+        let item = getKeyByValue(this.placeholder, muuriItem)
+        if (item) {
+            this.placeholder.delete(item)
+        } else {
+            item = getKeyByValue(this.items, muuriItem)
+            this.items.delete(item)
+        }
+    }
+
+    /**
+     * @param {number} count
+     * @returns {MuuriItem[]}
+     */
+    _removePlaceholders (count) {
         const removedElements = []
-        const elements = Array.from(this.placeholder.values()).sort((a, b) => {
+        const muuriItems = Array.from(this.placeholder.values()).sort((a, b) => {
             const valA = a.top + a.left
             const valB = b.top + b.left
             return valA - valB
         })
 
         for (let i = 0; i < count; i++) {
-            const element = elements.splice(0, 1)[0]
-            const key = getKeyByValue(this.placeholder, element)
-            this.placeholder.delete(key)
-            removedElements.push(element)
+            const muuriItem = muuriItems.splice(0, 1)[0]
+            const item = getKeyByValue(this.placeholder, muuriItem)
+            this.placeholder.delete(item)
+            removedElements.push(muuriItem)
         }
 
         return removedElements
     }
 
-    isPlaceholder (element) {
-        const item = getKeyByValue(this.placeholder, element)
+    /**
+     * @param {MuuriItem} muuriItem The MuuriItem
+     */
+    isPlaceholder (muuriItem) {
+        const item = getKeyByValue(this.placeholder, muuriItem)
         return !!item
     }
 
     updateAllItemDimensions () {
-        this.items.forEach((val, item) => {
+        this.items.forEach((muuriItem, item) => {
             item.updateDimensions()
         })
-        this.placeholder.forEach((val, item) => {
+        this.placeholder.forEach((muuriItem, item) => {
             item.updateDimensions()
         })
     }
 
     getImages () {
         const images = new Map()
-        // element - muuri
-        // item - Item
-        this.items.forEach((element, item) => {
+        this.items.forEach((muuriItem, item) => {
             const metadata = {
-                index: GridManager.getItemIndex(element),
+                index: GridManager.getItemIndex(muuriItem),
                 name: item.name,
-                top: element.top,
-                left: element.left,
-                marginTop: element.marginTop,
-                marginLeft: element.marginLeft,
+                top: muuriItem.top,
+                left: muuriItem.left,
+                marginTop: muuriItem.marginTop,
+                marginLeft: muuriItem.marginLeft,
                 width: item.imageRef.naturalWidth,
                 height: item.imageRef.naturalHeight
             }

@@ -351,6 +351,55 @@ class _GridManager {
     resetMargin () {
         this.setMargin(MARGIN)
     }
+
+
+    _cropHelper (outerStart, innerStart, getItemCallback) {
+        let count = 0
+        for (let inner = outerStart; inner >= 0; inner--) {
+            let canBeRemoved = true
+            const items = []
+
+            for (let outer = innerStart; outer >= 0; outer--) {
+                const item = getItemCallback(outer, inner);
+                if (!items.includes(item)) {
+                    items.push(item)
+                }
+
+                if (!ItemManager.isPlaceholder(item)) {
+                    canBeRemoved = false
+                }
+            }
+            if (canBeRemoved) {
+                items.forEach(item => {
+                    ItemManager.removeItem(item)
+                })
+                this.removeItems(items)
+                count++
+            } else {
+                break
+            }
+        }
+        return count
+    }
+
+    cropEdges () {
+        const map = this._getItemMap()
+        // remove unused cols
+        let count = this._cropHelper(this.cols-1, this.rows-1, (outer, inner) => {
+            return map[inner][outer].item
+        })
+        this.cols -=  count
+        // remove unused rows
+        count = this._cropHelper(this.rows-1, this.cols-1, (outer, inner) => {
+            return map[outer][inner].item
+        })
+        this.rows -= count
+
+        // the grid is not allowed to be empty
+        if (this.grid.getItems().length === 0) {
+            this.reset()
+        }
+    }
 }
 
 globalThis.GridManager = new _GridManager()

@@ -1,7 +1,6 @@
 import { Deferred } from "./Deferred.js";
 import { getGuid } from "./utils.js";
 
-globalThis.itemCount = 0
 globalThis.itemNameCache = []
 
 export class Item {
