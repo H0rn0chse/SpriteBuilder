@@ -9,7 +9,7 @@ class _ZoomManager {
         this.pan = globalThis.panzoom(element, {
             zoomDoubleClickSpeed: 1, //disable double click zoom
             beforeMouseDown: evt => {
-                return !evt.ctrlKey
+                return !this.isPanKeyPressed(evt)
             },
             beforeWheel: evt => { //zoom does not work in combination with muuri
                 return true
@@ -28,21 +28,27 @@ class _ZoomManager {
         this.pan.moveTo(64, 32)
     }
 
+    isPanKeyPressed (evt) {
+        return evt.altKey || evt.ctrlKey
+    }
+
     _addGrabbingHandler() {
         document.addEventListener("keydown", evt => {
-            if (evt.ctrlKey && !globalThis.panning && !globalThis.dragging) {
+            console.error(this.isPanKeyPressed(evt), globalThis.panning,globalThis.dragging)
+            if (this.isPanKeyPressed(evt) && !globalThis.panning && !globalThis.dragging) {
                 document.body.style.cursor = "grab"
             }
+            evt.preventDefault()
         })
         document.addEventListener("keyup", evt => {
-            if (!evt.ctrlKey && !globalThis.panning) {
+            if (!this.isPanKeyPressed(evt) && !globalThis.panning) {
                 document.body.style.cursor = ""
             }
         })
         document.addEventListener("mousedown", evt => {
-            if (evt.ctrlKey) {
+            if (this.isPanKeyPressed(evt)) {
                 globalThis.panning = true
-                document.body.style.cursor = "panning"
+                document.body.style.cursor = "grabbing"
                 GridManager.setDraggable(false)
             }
         })
@@ -52,7 +58,7 @@ class _ZoomManager {
                 GridManager.setDraggable(true)
             }
 
-            if (evt.ctrlKey) {
+            if (this.isPanKeyPressed(evt)) {
                 document.body.style.cursor = "grab"
             } else {
                 document.body.style.cursor = ""
