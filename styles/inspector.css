@@ -1,0 +1,61 @@
+#inspector {
+    position: relative;
+    left: 20em;
+    border-top-left-radius: 5%;
+    border-bottom-left-radius: 5%;
+}
+
+#inspector.show {
+    -webkit-transition: 1s;
+    -moz-transition: 1s;
+    -ms-transition: 1s;
+    -o-transition: 1s;
+    transition: 1s;
+    left: 0em !important;
+}
+
+#inspector.hide {
+    -webkit-transition: 1s;
+    -moz-transition: 1s;
+    -ms-transition: 1s;
+    -o-transition: 1s;
+    transition: 1s;
+    left: 20em !important;
+}
+
+#popoverButton2 {
+    position: absolute;
+    top: 100px;
+    left: -70px;
+    width: 30px;
+    height: 60px;
+    background-color: #FFD324;
+    border-top-left-radius: 80%;
+    border-bottom-left-radius: 80%;
+}
+
+#popoverButton {
+    position: absolute;
+    top: 100px;
+    left: -30px;
+    width: 30px;
+    height: 60px;
+    background-color: #FFD324;
+    border-top-left-radius: 80%;
+    border-bottom-left-radius: 80%;
+}
+
+#popoverButton > .arrow {
+    width: 100%;
+    height: 100%;
+}
+
+#popoverButton > .arrow.right {
+    display: none;
+}
+
+#inspector > p {
+    position: relative;
+    top: 2em;
+    left: 2em;
+}

@@ -2,11 +2,12 @@ import GridManager from "./GridManager.js";
 
 class _ZoomManager {
     constructor () {
+        this.element = document.querySelector("#scene")
         this.pan = null
     }
 
-    init (element) {
-        this.pan = globalThis.panzoom(element, {
+    init () {
+        this.pan = globalThis.panzoom(this.element, {
             zoomDoubleClickSpeed: 1, //disable double click zoom
             beforeMouseDown: evt => {
                 return !this.isPanKeyPressed(evt)

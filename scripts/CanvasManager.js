@@ -2,12 +2,11 @@ import { Deferred } from "./Deferred.js";
 
 class _CanvasManager {
     constructor () {
-        this.canvas = null
+        this.canvas = document.querySelector("#canvas")
         this.ctx = null
     }
 
-    init (element) {
-        this.canvas = element
+    init () {
         this.ctx = this.canvas.getContext('2d');
         this.setSize(200, 100)
     }

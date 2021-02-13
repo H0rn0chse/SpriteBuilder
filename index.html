@@ -3,20 +3,25 @@
     <head>
         <meta charset="utf-8">
         <title>SpriteBuilder</title>
-        <link rel="stylesheet" type="text/css" href="styles/style.css">
-        <link rel="stylesheet" type="text/css" href="styles/zoom.css">
-        <link rel="stylesheet" type="text/css" href="styles/grid.css">
-        <link rel="stylesheet" type="text/css" href="styles/ui.css">
+
         <link rel="stylesheet" type="text/css" href="styles/drop.css">
+        <link rel="stylesheet" type="text/css" href="styles/inspector.css">
+        <link rel="stylesheet" type="text/css" href="styles/grid.css">
+        <link rel="stylesheet" type="text/css" href="styles/style.css">
+        <link rel="stylesheet" type="text/css" href="styles/ui.css">
+        <link rel="stylesheet" type="text/css" href="styles/zoom.css">
+
         <script src="https://unpkg.com/panzoom@9.4.0/dist/panzoom.min.js"></script>
         <!--<script src="https://cdn.jsdelivr.net/npm/muuri@0.9.3/dist/muuri.min.js"></script>-->
         <script src="./libs/muuri.min.js"></script>
         <script src="./libs/jszip.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic">
     </head>
     <script type="module">
         import { init } from "./scripts/main.js"
         init()
+        feather.replace()
     </script>
 
     <body>
@@ -53,6 +58,13 @@
             </div>
             <div id="scene" class="main">
                 <div id="grid"></div>
+            </div>
+            <div id="inspector" class="popover">
+                <div id="popoverButton">
+                    <div class="arrow left" data-feather="chevron-left"></div>
+                    <div class="arrow right" data-feather="chevron-right"></div>
+                </div>
+                <p>Inspector Gadget</p>
             </div>
         </div>
         <div id="hidden">

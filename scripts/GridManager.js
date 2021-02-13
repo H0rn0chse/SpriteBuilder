@@ -15,7 +15,7 @@ let _margin = 5
 class _GridManager {
     constructor () {
         this.grid = null
-        this.element = null
+        this.element = document.querySelector("#grid")
         // default values get overwritten by reset
         this.rows = ROWS
         this.cols = COLS
@@ -27,9 +27,8 @@ class _GridManager {
         _margin = margin
     }
 
-    init (element) {
-        this.element = element
-        this.grid = new Muuri(element, {
+    init () {
+        this.grid = new Muuri(this.element, {
             dragEnabled: true,
             items: ".item",
             dragPlaceholder: {

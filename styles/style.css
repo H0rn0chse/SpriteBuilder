@@ -8,11 +8,11 @@ body {
     height: 100vh;
     width: 100vw;
     display: grid;
-    grid-template-columns: 15em auto;
+    grid-template-columns: 15em auto 20em;
     grid-template-rows: 13em auto;
     grid-template-areas:
-        "top top"
-        "side main";
+        "top top top"
+        "side main popover";
 }
 
 #hidden {
@@ -35,16 +35,21 @@ body {
 
 .top {
     grid-area: top;
-    background-color: lightcyan;
+    background-color: #e0ffff; /*lightcyan*/
 }
 
 .side {
     grid-area: side;
-    background-color: lightgreen;
+    background-color: #90ee90; /*lightgreen*/
 }
 
 .main {
     grid-area: main;
+}
+
+.popover {
+    grid-area: popover;
+    background-color: #F8E28B;
 }
 
 .flexRow {
