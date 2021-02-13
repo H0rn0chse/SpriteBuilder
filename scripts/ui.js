@@ -5,6 +5,7 @@ import { exportImage, exportJson } from "./exportFile.js";
 import ZoomManager from "./ZoomManager.js";
 import { getGuid } from "./utils.js";
 import { importFile } from "./importFile.js";
+import { Item } from "./Item.js";
 
 export function initUi () {
     document.querySelector("#addRow").addEventListener("click", async evt => {
@@ -35,8 +36,16 @@ export function getBlockSize () {
     return document.querySelector("#blockSize").value;
 }
 
+function setBlockSize (value) {
+    return document.querySelector("#blockSize").value = value;
+}
+
 export function getSpacing () {
     return document.querySelector("#exportMargin").value;
+}
+
+function setSpacing (value) {
+    return document.querySelector("#exportMargin").value = value;
 }
 
 function saveSpritesheet () {
@@ -77,6 +86,8 @@ function saveLayout (saveImageData = false) {
         layoutData.metadata.margin = layout.margin
         layoutData.metadata.blockSize = layout.blockSize
         layoutData.metadata.spacing = getSpacing()
+        layoutData.metadata.rows = layout.rows
+        layoutData.metadata.cols = layout.cols
     }
 
     images.forEach((metadata, image) => {
@@ -84,13 +95,14 @@ function saveLayout (saveImageData = false) {
             metadata.name = getGuid()
         }
         layoutData.sprites[metadata.name] = {
+            name: metadata.name,
             x: metadata.left + metadata.marginLeft,
             y: metadata.top + metadata.marginTop,
             w: metadata.width,
             h: metadata.height
         }
         if (saveImageData) {
-            layoutData.sprites[metadata.name].image = image.src
+            layoutData.sprites[metadata.name].src = image.src
             layoutData.sprites[metadata.name].index = metadata.index
         }
     })
@@ -100,7 +112,7 @@ function saveLayout (saveImageData = false) {
     exportJson(layoutData, fileName)
 }
 
-export function importConfiguration (json, fileName) {
+export async function importConfiguration (json, fileName) {
     let config = null
     try {
         config = JSON.parse(json)
@@ -109,5 +121,30 @@ export function importConfiguration (json, fileName) {
         return
     }
 
-    debugger
+    const meta = config.metadata
+
+    setBlockSize(meta.blockSize)
+    setSpacing(meta.spacing)
+
+    ItemManager.reset()
+    GridManager.removeAllItems()
+
+    GridManager.updateBlockSize()
+    GridManager.setBaseMargin(meta.margin)
+
+    const images = Object.values(config.sprites)
+    images.sort((a, b) => {
+        return a.index - b.index
+    })
+
+    for (let i = 0; i < images.length; i++) {
+        const item = new Item(images[i].src, images[i].name)
+        await ItemManager.importItem(item, images[i].index)
+    }
+
+    GridManager.setDimensions(meta.rows, meta.cols)
+    GridManager.updateContainerSize()
+    GridManager.updateLayout()
+    GridManager.updateContainerSize()
+    GridManager.fixLayout()
 }

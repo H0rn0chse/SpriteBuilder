@@ -51,12 +51,34 @@ class _ItemManager {
         }
     }
 
+    async importItem (item, index = 0) {
+        await item.loaded.promise
+
+        const placeholderCount = index - (this.items.size + this.placeholder.size)
+        if (placeholderCount > 0) {
+            for (let i = 0; i < placeholderCount; i++) {
+                const item = new Item()
+                await this.addItem(item, -1)
+            }
+        }
+
+        // add the item to the grid
+        const element = GridManager.addItem(item, index)
+
+        // save the muuri ref to the map
+        if (!item.src) {
+            this.placeholder.set(item, element)
+        } else {
+            this.items.set(item, element)
+        }
+    }
+
     _removePlaceholder (count) {
         const removedElements = []
         const elements = Array.from(this.placeholder.values()).sort((a, b) => {
             const valA = a.top + a.left
             const valB = b.top + b.left
-            return valA > valB
+            return valA - valB
         })
 
         for (let i = 0; i < count; i++) {
@@ -85,9 +107,11 @@ class _ItemManager {
 
     getImages () {
         const images = new Map()
+        // element - muuri
+        // item - Item
         this.items.forEach((element, item) => {
             const metadata = {
-                index: GridManager.getItemIndex(item),
+                index: GridManager.getItemIndex(element),
                 name: item.name,
                 top: element.top,
                 left: element.left,

@@ -5,7 +5,7 @@ import { getBlockSize, getSpacing } from "./ui.js";
 // startup params
 const ROWS = 5
 const COLS = 8
-const MARGIN = 5
+let MARGIN = 5
 
 // ROWS === HEIGHT
 // COLS === WIDTH
@@ -20,6 +20,11 @@ class _GridManager {
         this.rows = ROWS
         this.cols = COLS
         this.currentBlockSize = 64
+    }
+
+    setBaseMargin (margin) {
+        MARGIN = margin
+        _margin = margin
     }
 
     init (element) {
@@ -107,6 +112,21 @@ class _GridManager {
         const items = this.grid.getItems()
         this.grid.remove(items, { layout: false, removeElements: true })
         ItemManager.reset()
+    }
+
+    /**
+     * CAUTION: This method may destroy the grid
+     */
+    setDimensions (rows, cols) {
+        this.rows = rows
+        this.cols = cols
+    }
+
+    /**
+     * CAUTION: This method may destroy the grid
+     */
+    updateBlockSize () {
+        this.currentBlockSize = getBlockSize()
     }
 
     setDraggable (value) {
