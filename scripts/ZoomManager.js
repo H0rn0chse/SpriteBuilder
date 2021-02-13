@@ -29,16 +29,14 @@ class _ZoomManager {
     }
 
     isPanKeyPressed (evt) {
-        return evt.altKey || evt.ctrlKey
+        return evt.shiftKey || evt.ctrlKey
     }
 
     _addGrabbingHandler() {
         document.addEventListener("keydown", evt => {
-            console.error(this.isPanKeyPressed(evt), globalThis.panning,globalThis.dragging)
             if (this.isPanKeyPressed(evt) && !globalThis.panning && !globalThis.dragging) {
                 document.body.style.cursor = "grab"
             }
-            evt.preventDefault()
         })
         document.addEventListener("keyup", evt => {
             if (!this.isPanKeyPressed(evt) && !globalThis.panning) {

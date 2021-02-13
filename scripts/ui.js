@@ -112,9 +112,6 @@ function getLayoutData (saveImageData = false) {
     }
 
     images.forEach((metadata, image) => {
-        if (layoutData.sprites[metadata.name]) {
-            metadata.name = getGuid()
-        }
         layoutData.sprites[metadata.name] = {
             name: metadata.name,
             x: metadata.left + metadata.marginLeft,

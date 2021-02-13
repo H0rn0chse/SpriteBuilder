@@ -2,10 +2,15 @@ import { Deferred } from "./Deferred.js";
 import { getGuid } from "./utils.js";
 
 globalThis.itemCount = 0
+globalThis.itemNameCache = []
 
 export class Item {
-    constructor (src, name) {
-        this.name = name || getGuid()
+    constructor (src, name = "") {
+        if (!name || globalThis.itemNameCache.includes(name)) {
+            name = `${name}_${getGuid()}`
+        }
+        globalThis.itemNameCache.push(name)
+        this.name = name
         this.src = src
         this.rows = 1
         this.cols = 1
