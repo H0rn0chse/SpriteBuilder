@@ -1,5 +1,5 @@
 #grid {
-    position: relative;
+    position: absolute;
     width: 0;
     height: 0;
     background-color: pink;
