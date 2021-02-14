@@ -2,6 +2,13 @@
 
 [SpriteBuilder](https://h0rn0chse.github.io/SpriteBuilder/) is a tool to combine single sprites into spritesheets. The images are only saved within the browser cache. This tool optimzed for the godot plugin [Godot Atlasica](https://github.com/AnJ95/godot-atlasica). You can create and manage your spritesheets in SpriteBuilder and import the result into the plugin.
 
+* [How To Basics](#how-to-basics)
+* [Libraries](#libraries)
+* [Controls](#controls)
+* [FAQ](#faq)
+
+<br>
+
 <img src="./docu/screenshot.png" title="Screenshot" />
 
 ## How To Basics
