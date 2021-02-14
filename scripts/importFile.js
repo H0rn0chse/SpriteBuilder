@@ -1,3 +1,4 @@
+import { Deferred } from "./Deferred.js";
 import { addItem } from "./main.js";
 import { importConfig } from "./ui.js";
 
@@ -29,6 +30,16 @@ export function importImage () {
 	fileHandler.setAttribute("multiple", true)
 	fileHandler.onchange = importImageHandler
 	fileHandler.click()
+}
+
+export function importImageData () {
+	const deferred = new Deferred()
+	fileHandler.value = ""
+	fileHandler.setAttribute("accept", ".png")
+	fileHandler.removeAttribute("multiple")
+	fileHandler.onchange = importDataUrlHandler.bind(null, deferred.resolve)
+	fileHandler.click()
+	return deferred.promise
 }
 
 function addLoadFile () {
@@ -69,6 +80,22 @@ export function importZipHandler (event) {
 			importConfig(json, fileName)
 		}
 		reader.readAsArrayBuffer(file)
+	}
+}
+
+function importDataUrlHandler (callback, event) {
+	const file = event.target.files[0] || {}
+	if (file) {
+		const fileName = file.name
+		const reader = new FileReader()
+		reader.onload = evt => {
+			const result = {
+				content: evt.target.result,
+				name: fileName
+			}
+			callback(result)
+		}
+		reader.readAsDataURL(file)
 	}
 }
 

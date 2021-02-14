@@ -44,6 +44,14 @@ export class Item {
         return true
     }
 
+    updateSrc (src) {
+        this.loaded = new Deferred()
+        this.src = src
+        this.imageRef.src = src
+        this.imageRef.onload = this._onImageLoad.bind(this)
+    }
+
+
     isPlaceholder () {
         return !this.src
     }

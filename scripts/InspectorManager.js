@@ -1,12 +1,13 @@
 import ItemManager from "./ItemManager.js";
 import GridManager from "./GridManager.js";
+import { importImageData } from "./importFile.js";
+import { Item } from "./Item.js";
+
 class _InspectorManager {
     constructor () {
         this.element = document.querySelector("#inspector")
         this.button = document.querySelector("#inspectorButton")
         this.visible = false
-        // dev settings
-        this.visible = true
 
         this.nameMsg = document.querySelector("#inspectorNameMsg")
         this.nameInput = document.querySelector("#inspectorName")
@@ -20,7 +21,7 @@ class _InspectorManager {
             this.show(!this.visible)
         })
         document.querySelector("#inspectorUpdate").addEventListener("click", evt => {
-
+            this._updateSprite()
         })
         document.querySelector("#inspectorDelete").addEventListener("click", evt => {
             this._removeCurrentItem()
@@ -102,6 +103,16 @@ class _InspectorManager {
         this.reset()
 
         ItemManager.removeItem(item, true)
+        await GridManager.fixLayout()
+    }
+
+    async _updateSprite () {
+        const response = await importImageData()
+        this.currentItem.updateSrc(response.content)
+        await this.currentItem.loaded.promise
+
+        GridManager.refreshAll()
+        GridManager.updateContainerSize()
         await GridManager.fixLayout()
     }
 

@@ -163,6 +163,19 @@ class _ItemManager {
         return removedElements
     }
 
+    getMuuriItem (item) {
+        let muuriItem = this.items.get(item)
+        if (!muuriItem) {
+            muuriItem = this.placeholder.get(item)
+        }
+        return muuriItem
+    }
+
+    getItemIndex (item) {
+        let muuriItem = this.getMuuriItem(item)
+        return GridManager.getItemIndex(muuriItem)
+    }
+
     /**
      * @param {MuuriItem} muuriItem The MuuriItem
      */
