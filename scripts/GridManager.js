@@ -154,6 +154,8 @@ class _GridManager {
                 await ItemManager.addItem(item, indexList[i])
             }
             this.cols += 1
+            GridManager.updateContainerSize()
+            GridManager.updateLayout(true)
         }
     }
 
