@@ -1,3 +1,5 @@
+import ItemManager from "./ItemManager.js";
+import GridManager from "./GridManager.js";
 class _InspectorManager {
     constructor () {
         this.element = document.querySelector("#inspector")
@@ -21,7 +23,7 @@ class _InspectorManager {
 
         })
         document.querySelector("#inspectorDelete").addEventListener("click", evt => {
-
+            this._removeCurrentItem()
         })
 
         this.nameInput.addEventListener("focusin", evt => {
@@ -89,6 +91,18 @@ class _InspectorManager {
             return this.currentItem.updateName(name)
         }
         return false
+    }
+
+    async _removeCurrentItem () {
+        const item = this.currentItem
+        if (!item) {
+            return
+        }
+        this._selectCurrentItem(false)
+        this.reset()
+
+        ItemManager.removeItem(item, true)
+        await GridManager.fixLayout()
     }
 
     load (item) {

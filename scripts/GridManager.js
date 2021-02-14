@@ -383,7 +383,11 @@ class _GridManager {
         return count
     }
 
-    cropEdges () {
+    async cropEdges () {
+        // we need to fix the layout first
+        // otherwise the map is broken
+        await this.fixLayout()
+
         const map = this._getItemMap()
         // remove unused cols
         let count = this._cropHelper(this.cols-1, this.rows-1, (outer, inner) => {

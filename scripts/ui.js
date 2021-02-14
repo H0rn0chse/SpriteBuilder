@@ -36,8 +36,8 @@ export function initUi () {
 
     document.querySelector("#gridFillGaps").addEventListener("click", GridManager.fixLayout.bind(GridManager))
 
-    document.querySelector("#gridCropEdges").addEventListener("click", evt => {
-        GridManager.cropEdges()
+    document.querySelector("#gridCropEdges").addEventListener("click", async evt => {
+        await GridManager.cropEdges()
         GridManager.updateContainerSize()
         GridManager.updateLayout()
     })

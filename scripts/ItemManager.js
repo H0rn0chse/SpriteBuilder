@@ -102,15 +102,42 @@ class _ItemManager {
     }
 
     /**
-     * @param {MuuriItem} muuriItem The MuuriItem
+     * @param {MuuriItem | Item} vItem The MuuriItem or Item
+     * @param {boolean} removeGrid
      */
-    removeItem (muuriItem) {
-        let item = getKeyByValue(this.placeholder, muuriItem)
-        if (item) {
+    removeItem (vItem, removeGrid = false) {
+        let item
+        let muuriItem
+        let isPlaceholder
+
+        if (vItem instanceof Item) {
+            item = vItem
+            if (item.isPlaceholder()) {
+                isPlaceholder = true
+                muuriItem = this.placeholder.get(item)
+            } else {
+                isPlaceholder = false
+                muuriItem = this.items.get(item)
+            }
+        } else {
+            muuriItem = vItem
+
+            isPlaceholder = true
+            item = getKeyByValue(this.placeholder, muuriItem)
+            if (!item) {
+                isPlaceholder = false
+                item = getKeyByValue(this.items, muuriItem)
+            }
+        }
+
+        if (isPlaceholder) {
             this.placeholder.delete(item)
         } else {
-            item = getKeyByValue(this.items, muuriItem)
             this.items.delete(item)
+        }
+
+        if (removeGrid) {
+            GridManager.removeItems([muuriItem])
         }
         item.destroy()
     }

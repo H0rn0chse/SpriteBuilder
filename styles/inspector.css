@@ -53,6 +53,7 @@
     height: 60px;
     border-top-left-radius: 80%;
     border-bottom-left-radius: 80%;
+    cursor: pointer;
 }
 
 #inspectorButton > .arrow {

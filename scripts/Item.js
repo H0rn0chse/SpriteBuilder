@@ -44,6 +44,10 @@ export class Item {
         return true
     }
 
+    isPlaceholder () {
+        return !this.src
+    }
+
     _createItem () {
         this.domRef = document.createElement("div")
         this.domRef.classList.add("item")
