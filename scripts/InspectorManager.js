@@ -47,7 +47,7 @@ class _InspectorManager {
                 if (!newName) {
                     this.nameMsg.innerText = "A name is required!"
                 } else  if (this.currentItem !== null) {
-                    this.nameMsg.innerText = "This name was alread used!"
+                    this.nameMsg.innerText = "This name was already used!"
                 }
             } else {
                 this.nameMsg.classList.add("success")
