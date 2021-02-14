@@ -67,8 +67,12 @@
                 </div>
                 <input id="inspectorName" class="tooltip-top" type="text"></input>
                 <div class="spacer"></div>
-                <label>Metadata:</label>
-                <textarea disabled id="inspectorMetadata" rows="10"></textarea >
+                <div class="flexRow">
+                    <label>Metadata:</label>
+                    <label id="inspectorMetadataMsg" class="msg"></label>
+                </div>
+                <textarea id="inspectorMetadata" rows="10" spellcheck="false"></textarea >
+                <label><button id="inspectorMetadataSave" class="inspectorButton smallButton">Save Metadata</button></label>
                 <div class="bottomContent flexColumn">
                     <button id="inspectorUpdate" class="inspectorButton">Update Sprite Image</button>
                     <button id="inspectorDelete" class='error'>Delete Sprite</button>

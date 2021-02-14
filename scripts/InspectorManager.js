@@ -1,6 +1,7 @@
 import ItemManager from "./ItemManager.js";
 import GridManager from "./GridManager.js";
 import { importImage } from "./importFile.js";
+import { insertTextAtCaret } from "./utils.js"
 
 class _InspectorManager {
     constructor () {
@@ -11,6 +12,8 @@ class _InspectorManager {
         this.nameMsg = document.querySelector("#inspectorNameMsg")
         this.nameInput = document.querySelector("#inspectorName")
         this.metadataInput = document.querySelector("#inspectorMetadata")
+        this.metadataBtn = document.querySelector("#inspectorMetadataSave")
+        this.metadataMsg = document.querySelector("#inspectorMetadataMsg")
 
         this.currentItem = null
     }
@@ -54,6 +57,36 @@ class _InspectorManager {
             }
         })
 
+        this.metadataInput.addEventListener("focusin", evt => {
+            this.metadataMsg.innerText = ""
+        })
+
+        this.metadataBtn.addEventListener("click", evt => {
+            this.metadataMsg.innerText = ""
+            const metadata = this.metadataInput.value
+
+            this.metadataMsg.classList.remove("error")
+            this.metadataMsg.classList.remove("success")
+
+            if (!this.currentItem) {
+                return
+            }
+            if (this._updateMetadata(metadata)) {
+                this.metadataMsg.classList.add("success")
+                this.metadataMsg.innerText = "Saved"
+            } else {
+                this.metadataMsg.classList.add("error")
+                this.metadataMsg.innerText = "An error occurred"
+            }
+        })
+
+        this.metadataInput.addEventListener("keydown", evt => {
+            if (evt.key === "Tab") {
+                evt.preventDefault()
+                insertTextAtCaret(this.metadataInput, "  ")
+            }
+        })
+
         document.addEventListener("keydown", evt => {
             if (evt.key === "Escape") {
                 this.show(false)
@@ -65,6 +98,8 @@ class _InspectorManager {
         this.currentItem = null
         this.nameInput.value = ""
         this.metadataInput.value = ""
+        this.nameMsg.innerText = ""
+        this.metadataMsg.innerText = ""
     }
 
     show (show) {
@@ -99,6 +134,21 @@ class _InspectorManager {
         return false
     }
 
+    _updateMetadata (metadataJson) {
+        let result = null
+        try {
+            result = JSON.parse(metadataJson)
+        } catch (err) {
+            console.error(err)
+        }
+        if (result !== null) {
+            this.currentItem.setMetadata(result)
+            this.metadataInput.value = JSON.stringify(result, null, 2)
+            return true
+        }
+        return false
+    }
+
     async _removeCurrentItem () {
         const item = this.currentItem
         if (!item) {
@@ -122,14 +172,16 @@ class _InspectorManager {
     }
 
     load (item) {
-        // unselect old item
+        // unselect old item and reset
         this._selectCurrentItem(false)
+        this.reset()
 
         // select new item
         this.currentItem = item
         this._selectCurrentItem(this.visible)
 
         this.nameInput.value = item.name
+        this.metadataInput.value = JSON.stringify(item.metadata, null, 2)
     }
 }
 

@@ -66,3 +66,7 @@ body {
     display: flex;
     flex-direction: column;
 }
+
+.smallButton {
+    font-size: .75em;
+}

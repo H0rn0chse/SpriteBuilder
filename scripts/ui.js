@@ -65,8 +65,7 @@ export function initUi () {
         const zip = await importZip()
         const config = await zip.file("config.json").async("string")
         const layout = await zip.file("layout.json").async("string")
-        debugger
-        importConfig(config)
+        importConfig(config, layout)
     })
 }
 
@@ -164,16 +163,19 @@ async function saveZip () {
     exportBlob(blob, "SpriteBuilder.zip")
 }
 
-export async function importConfig (json) {
+async function importConfig (configJson, layoutJson) {
     let config = null
+    let layout = null
     try {
-        config = JSON.parse(json)
+        config = JSON.parse(configJson)
+        layout = JSON.parse(layoutJson)
     } catch (err) {
         console.error(err)
         return
     }
 
     const meta = config.metadata
+    const layoutData = layout.sprites
 
     gridBlockSizeInput.value = meta.blockSize
     setSpacing(meta.spacing)
@@ -190,8 +192,10 @@ export async function importConfig (json) {
     })
 
     for (let i = 0; i < images.length; i++) {
-        const item = new Item(images[i].src, images[i].name, images[i].originalName)
-        await ItemManager.importItem(item, images[i].index)
+        const image = images[i]
+        const item = new Item(image.src, image.name, image.originalName)
+        item.setMetadata(layoutData[image.name].metadata)
+        await ItemManager.importItem(item, image.index)
     }
 
     GridManager.setDimensions(meta.rows, meta.cols)
