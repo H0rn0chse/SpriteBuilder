@@ -23,6 +23,10 @@ body {
     display: none;
 }
 
+:disabled {
+    background-color: #dddddd;
+}
+
 /*
 #hidden > canvas{
     display: inherit;

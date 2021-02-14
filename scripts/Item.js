@@ -1,5 +1,6 @@
 import { Deferred } from "./Deferred.js";
 import { getGuid } from "./utils.js";
+import InspectorManager from "./InspectorManager.js";
 
 globalThis.itemNameCache = []
 
@@ -33,6 +34,10 @@ export class Item {
         this.domRef.classList.add("item")
         if (!this.src) {
             this.domRef.classList.add("empty-item")
+        } else {
+            this.domRef.addEventListener("click", evt => {
+                InspectorManager.load(this)
+            })
         }
     }
 
@@ -66,6 +71,14 @@ export class Item {
 
         this.updateDimensions()
         this.loaded.resolve()
+    }
+
+    setSelected (value) {
+        if (value) {
+            this.domRef.classList.add("selected")
+        } else {
+            this.domRef.classList.remove("selected")
+        }
     }
 
     getSize () {

@@ -2,7 +2,7 @@
     position: absolute;
     width: 0;
     height: 0;
-    background-color: pink;
+    background-color: #ffc0cb; /* pink */
 }
 
 .empty-item {
@@ -17,6 +17,11 @@
     position: absolute;
     z-index: 1;
     margin: 5px;
+}
+
+.item.selected {
+    border-radius: 10px;
+    box-shadow: 0 0 5px 1px #FF1F44;
 }
 
 .item-save-margin {

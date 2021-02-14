@@ -8,6 +8,8 @@ class _InspectorManager {
 
         this.nameInput = document.querySelector("#inspectorName")
         this.metadataInput = document.querySelector("#inspectorMetadata")
+
+        this.currentItem = null
     }
 
     init () {
@@ -38,6 +40,27 @@ class _InspectorManager {
             this.button.querySelector(".arrow.right").style.display = "none"
         }
         this.visible = !!show
+        this.selectCurrentItem(this.visible)
+    }
+
+    selectCurrentItem (value) {
+        if (this.currentItem && this.currentItem.setSelected) {
+            this.currentItem.setSelected(!!value)
+        }
+    }
+
+    load (item) {
+        // cleanup
+        if (this.currentItem && this.currentItem.setSelected) {
+            this.currentItem.setSelected(false)
+        }
+
+        if (this,this.visible) {
+            item.setSelected(true)
+        }
+
+        this.currentItem = item
+        this.nameInput.value = item.name
     }
 }
 
