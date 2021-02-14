@@ -5,6 +5,7 @@
 * [How To Basics](#how-to-basics)
 * [Libraries](#libraries)
 * [Controls](#controls)
+* [Limitations](#limitations)
 * [FAQ](#faq)
 
 <br>
@@ -32,6 +33,9 @@
  * Move Grid: Ctrl + Drag / Shift + Drag
  * Open Inspector: Double Click on Sprite
  * Close Inspector: Esc
+
+## Limitations
+You might experience some performance issues with extra large grids (>3000 items).
 
 ## FAQ
 **How do I change the blocksize?**<br>
