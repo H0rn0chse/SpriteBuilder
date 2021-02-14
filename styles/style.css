@@ -9,7 +9,7 @@ body {
     width: 100vw;
     display: grid;
     grid-template-columns: 15em auto 20em;
-    grid-template-rows: 13em auto;
+    grid-template-rows: 11em auto;
     grid-template-areas:
         "top top top"
         "side main popover";
