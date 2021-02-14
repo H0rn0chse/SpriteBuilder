@@ -11,7 +11,7 @@ let exportMarginInput = null
 
 export function initUi () {
     /*=======================================================================================
-    ||                                 Grid UI                                        ||
+    ||                                    Grid UI                                          ||
     =======================================================================================*/
 
     gridBlockSizeInput = document.querySelector("#gridBlockSize")
@@ -43,7 +43,7 @@ export function initUi () {
     })
 
     /*=======================================================================================
-    ||                                 Export UI                                        ||
+    ||                                    Export UI                                        ||
     =======================================================================================*/
 
     exportMarginInput = document.querySelector("#exportMargin")
@@ -66,6 +66,19 @@ export function initUi () {
         const config = await zip.file("config.json").async("string")
         const layout = await zip.file("layout.json").async("string")
         importConfig(config, layout)
+    })
+
+    /*=======================================================================================
+    ||                                     Modal UI                                        ||
+    =======================================================================================*/
+
+    document.addEventListener("keydown", evt => {
+        if (evt.key === "Escape") {
+            const modalWindows = document.querySelectorAll(".modal > [type=checkbox]");
+            modalWindows.forEach(modal => {
+                modal.checked = false
+            })
+        }
     })
 }
 

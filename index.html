@@ -7,6 +7,7 @@
         <link rel="stylesheet" type="text/css" href="styles/drop.css">
         <link rel="stylesheet" type="text/css" href="styles/inspector.css">
         <link rel="stylesheet" type="text/css" href="styles/grid.css">
+        <link rel="stylesheet" type="text/css" href="styles/help.css">
         <link rel="stylesheet" type="text/css" href="styles/style.css">
         <link rel="stylesheet" type="text/css" href="styles/ui.css">
         <link rel="stylesheet" type="text/css" href="styles/zoom.css">
@@ -27,24 +28,27 @@
     <body>
         <div id="container">
             <div class="top ui flexColumn">
-                <h1>SpriteBuilder</h1>
-                <div class="buttonBar" class="flexRow">
+                <h1 class="text">SpriteBuilder</h1>
+                <div class="buttonBar flexRow">
                     <label>BlockSize: <input class="numberInput" id="gridBlockSize" type="number" value="64"></input></label>
                     <button id="gridReset">Reset</button>
                     <button id="gridAddRow">Add Row</button>
                     <button id="gridAddColumn">Add Column</button>
                     <button id="gridCropEdges">Crop Edges</button>
                     <button id="gridFillGaps">Fill Gaps</button>
-                    <label id="gridCols" class="labelText"></label>
-                    <label id="gridRows" class="labelText"></label>
+                    <label id="gridCols" class="text"></label>
+                    <label id="gridRows" class="text"></label>
                 </div>
-                <div class="buttonBar" class="flexRow">
+                <div class="buttonBar flexRow">
                     <label>ExportSpacing: <input class="numberInput" id="exportMargin" type="number" value="0"></input></label>
                     <button id="exportSpritesheet">Save Spritesheet</button>
                     <button id="exportZip">Export</button>
                     <button id="importZip">Import</button>
-                    <label id="exportWidth" class="labelText"></label>
-                    <label id="exportHeight" class="labelText"></label>
+                    <label id="exportWidth" class="text"></label>
+                    <label id="exportHeight" class="text"></label>
+                    <div class="endContent flexRow">
+                        <label id="help" for="helpModal" class="button">Help</label>
+                    </div>
                 </div>
             </div>
             <div class="side ui">
@@ -62,22 +66,61 @@
                     <div class="arrow right" data-feather="chevron-right"></div>
                 </div>
                 <div class="flexRow">
-                    <label>Name:</label>
+                    <label id="inspectorNameLbl">Name:</label>
                     <label id="inspectorNameMsg" class="msg"></label>
                 </div>
                 <input id="inspectorName" class="tooltip-top" type="text"></input>
                 <div class="spacer"></div>
                 <div class="flexRow">
-                    <label>Metadata:</label>
+                    <label id="inspectorMetadataLbl">Metadata:</label>
                     <label id="inspectorMetadataMsg" class="msg"></label>
                 </div>
                 <textarea id="inspectorMetadata" rows="10" spellcheck="false"></textarea >
                 <label><button id="inspectorMetadataSave" class="inspectorButton smallButton">Save Metadata</button></label>
-                <div class="bottomContent flexColumn">
+                <div class="endContent flexColumn">
                     <button id="inspectorUpdate" class="inspectorButton">Update Sprite Image</button>
                     <button id="inspectorDelete" class='error'>Delete Sprite</button>
                 </div>
             </div>
+        </div>
+        <div class="modal">
+            <input id="helpModal" type="checkbox" />
+            <label for="helpModal" class="overlay"></label>
+            <article id="helpModalContent">
+                <header>
+                    <h3 class="text">Help</h3>
+                    <label for="helpModal" class="close">&times;</label>
+                </header>
+                <section class="content flexColumn">
+                    <h4 class="text">Controls</h4>
+                    <div class="rowItem">
+                        <label class="text">Move Grid</label>
+                        <label class="text">-</label>
+                        <label class="text">Ctrl + Drag / Shift + Drag</label>
+                    </div>
+                    <div class="rowItem">
+                        <label class="text">Open Inspector</label>
+                        <label class="text">-</label>
+                        <label class="text">Double Click on Sprite</label>
+                    </div>
+                    <div class="rowItem">
+                        <label class="text">Close Inspector</label>
+                        <label class="text">-</label>
+                        <label class="text">Esc</label>
+                    </div>
+                    <div class="spacer"></div>
+                    <h4 class="text">FAQ</h4>
+                    <h5 class="text">How do I change the blocksize?</h5>
+                    <label class="text">Press the reset button. But keep in mind that the grid will be rebuilt and all your progress will be lost!</label>
+                    <div class="spacer"></div>
+                    <a href="https://github.com/H0rn0chse/SpriteBuilder" target="blank">Link to Github</a>
+                </section>
+                <footer class="flexRow">
+                    <div class="endContent flexRow">
+                        <label for="helpModal" class="button">Close</label>
+                    </div>
+                </footer>
+            </article>
         </div>
         <div id="hidden">
             <canvas id="canvas"></canvas>

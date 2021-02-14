@@ -67,6 +67,15 @@ body {
     flex-direction: column;
 }
 
+.endContent {
+    flex-grow: 1;
+    justify-content: flex-end;
+}
+
+.spacer {
+    height: 2em;
+}
+
 .smallButton {
     font-size: .75em;
 }

@@ -19,14 +19,27 @@ class _InspectorManager {
     }
 
     init () {
-        this.button.addEventListener("click", evt => {
-            this.show(!this.visible)
+        document.querySelector("#inspectorNameLbl").addEventListener("click", evt => {
+            this.nameInput.focus()
+        })
+        document.querySelector("#inspectorMetadataLbl").addEventListener("click", evt => {
+            this.metadataInput.focus()
         })
         document.querySelector("#inspectorUpdate").addEventListener("click", evt => {
+            if (!this.currentItem) {
+                return
+            }
             this._updateSprite()
         })
         document.querySelector("#inspectorDelete").addEventListener("click", evt => {
+            if (!this.currentItem) {
+                return
+            }
             this._removeCurrentItem()
+        })
+
+        this.button.addEventListener("click", evt => {
+            this.show(!this.visible)
         })
 
         this.nameInput.addEventListener("focusin", evt => {
@@ -59,6 +72,12 @@ class _InspectorManager {
 
         this.metadataInput.addEventListener("focusin", evt => {
             this.metadataMsg.innerText = ""
+        })
+
+        this.metadataInput.addEventListener("focusout", evt => {
+            if (!this.currentItem) {
+                this.metadataInput.value = ""
+            }
         })
 
         this.metadataBtn.addEventListener("click", evt => {
@@ -151,9 +170,6 @@ class _InspectorManager {
 
     async _removeCurrentItem () {
         const item = this.currentItem
-        if (!item) {
-            return
-        }
         this._selectCurrentItem(false)
         this.reset()
 

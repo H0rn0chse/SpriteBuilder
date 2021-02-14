@@ -24,17 +24,8 @@
     left: 20em !important;
 }
 
-#inspector .spacer {
-    height: 2em;
-}
-
 #inspector textarea {
     resize: none;
-}
-
-#inspector .bottomContent.flexColumn {
-    flex-grow: 1;
-    justify-content: flex-end;
 }
 
 .inspectorButton {

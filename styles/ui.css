@@ -11,6 +11,11 @@
     max-width: 5em;
 }
 
-.labelText {
+.text {
     cursor: default;
+}
+
+#help {
+    margin-right: 2em;
+    cursor: pointer;
 }
