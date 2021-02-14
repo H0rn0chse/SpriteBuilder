@@ -19,3 +19,7 @@
 #helpModalContent .content .rowItem label:nth-child(3) {
     grid-area: 1 / 3;
 }
+
+#helpModalContent a h4 {
+    cursor: pointer;
+}
