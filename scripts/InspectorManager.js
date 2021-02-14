@@ -1,7 +1,6 @@
 import ItemManager from "./ItemManager.js";
 import GridManager from "./GridManager.js";
-import { importImageData } from "./importFile.js";
-import { Item } from "./Item.js";
+import { importImage } from "./importFile.js";
 
 class _InspectorManager {
     constructor () {
@@ -113,8 +112,8 @@ class _InspectorManager {
     }
 
     async _updateSprite () {
-        const response = await importImageData()
-        this.currentItem.updateSrc(response.content)
+        const response = await importImage(false)
+        this.currentItem.updateSrc(response[0].content)
         await this.currentItem.loaded.promise
 
         GridManager.refreshAll()

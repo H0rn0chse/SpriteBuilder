@@ -1,4 +1,6 @@
-import { importImage, importImageHandler } from "./importFile.js";
+import { Deferred } from "./Deferred.js";
+import { importImage, importDataURL } from "./importFile.js";
+import { addItem } from "./main.js";
 
 let dragArea
 
@@ -14,7 +16,12 @@ export function initDrag (area, button) {
     dragArea.addEventListener("drop", handleDrop.bind(this))
     dragArea.addEventListener("dragover", handleDragOver.bind(this))
 
-    button.addEventListener("click", importImage)
+    button.addEventListener("click", async evt => {
+        const images = await importImage(true)
+        for (let i = 0; i < images.length; i++) {
+            await addItem(images[i].content, images[i].name)
+        }
+    })
 }
 
 const lastHover = {}
@@ -52,7 +59,7 @@ function handleDragOver (evt) {
     setHoverClass(true)
 }
 
-function handleDrop (evt) {
+async function handleDrop (evt) {
     evt.stopPropagation()
     evt.preventDefault()
 
@@ -62,17 +69,28 @@ function handleDrop (evt) {
         }
     }
 
+    let shouldImport = true
+
     if (evt.dataTransfer.items) {
         for (var i = 0; i < evt.dataTransfer.items.length; i++) {
             if (evt.dataTransfer.items[i].kind === 'file') {
                 eventOut.target.files[i] = evt.dataTransfer.items[i].getAsFile();
+                shouldImport = eventOut.target.files[i].name.endsWith(".png") ? shouldImport : false
             }
           }
     } else {
         for (var i = 0; i < evt.dataTransfer.files.length; i++) {
             eventOut.target.files[i] = evt.dataTransfer.files[i]
+            shouldImport = eventOut.target.files[i].name.endsWith(".png") ? shouldImport : false
         }
     }
 
-    importImageHandler(eventOut)
+    if (shouldImport) {
+        const deferred = new Deferred()
+        importDataURL(deferred.resolve, deferred.reject, eventOut)
+        const images = await deferred.promise
+        for (let i = 0; i < images.length; i++) {
+            await addItem(images[i].content, images[i].name)
+        }
+    }
 }

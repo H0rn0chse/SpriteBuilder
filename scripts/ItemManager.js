@@ -200,6 +200,7 @@ class _ItemManager {
                 index: GridManager.getItemIndex(muuriItem),
                 name: item.name,
                 originalName: item.originalName,
+                metadata: item.metadata,
                 top: muuriItem.top,
                 left: muuriItem.left,
                 marginTop: muuriItem.marginTop,

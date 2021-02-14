@@ -13,6 +13,7 @@ export class Item {
         this.cols = 1
         this.margin = 0
 
+        this.metadata = {}
         this.originalName = originalName !== null ? originalName : name
 
         if (!name || globalThis.itemNameCache.includes(name)) {
@@ -27,6 +28,10 @@ export class Item {
         this.imageRef = null
         this.contentRef = null
         this._createContent()
+    }
+
+    setMetadata (metadata) {
+        this.metadata = metadata
     }
 
     updateName (name) {

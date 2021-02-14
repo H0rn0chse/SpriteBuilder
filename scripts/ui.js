@@ -1,9 +1,9 @@
 import GridManager from "./GridManager.js";
 import ItemManager from "./ItemManager.js";
 import CanvasManager from "./CanvasManager.js";
-import { exportText, exportBlob } from "./exportFile.js";
+import { exportBlob } from "./exportFile.js";
 import ZoomManager from "./ZoomManager.js";
-import { importJson, importZip } from "./importFile.js";
+import { importZip } from "./importFile.js";
 import { Item } from "./Item.js";
 
 let gridBlockSizeInput = null
@@ -56,21 +56,15 @@ export function initUi () {
         exportBlob(file.content, file.name)
     })
 
-    document.querySelector("#exportLayout").addEventListener("click", evt => {
-        const file = getLayoutData()
-        exportText(file.content, file.name)
-    })
-
-    document.querySelector("#exportConfig").addEventListener("click", evt => {
-        const file = getLayoutData(true)
-        exportText(file.content, file.name)
-    })
-
-    document.querySelector("#importConfig").addEventListener("click", importJson)
-
     document.querySelector("#exportZip").addEventListener("click", saveZip)
 
-    document.querySelector("#importZip").addEventListener("click", importZip)
+    document.querySelector("#importZip").addEventListener("click", async evt => {
+        const zip = await importZip()
+        const config = await zip.file("config.json").async("string")
+        const layout = await zip.file("layout.json").async("string")
+        debugger
+        importConfig(config)
+    })
 }
 
 export function getSpacing () {
@@ -132,7 +126,8 @@ function getLayoutData (saveImageData = false) {
             x: metadata.left + metadata.marginLeft,
             y: metadata.top + metadata.marginTop,
             w: metadata.width,
-            h: metadata.height
+            h: metadata.height,
+            metadata: metadata.metadata
         }
         if (saveImageData) {
             layoutData.sprites[metadata.name].src = image.src
@@ -166,7 +161,7 @@ async function saveZip () {
     exportBlob(blob, "SpriteBuilder.zip")
 }
 
-export async function importConfig (json, fileName) {
+export async function importConfig (json) {
     let config = null
     try {
         config = JSON.parse(json)
