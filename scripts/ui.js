@@ -3,73 +3,82 @@ import ItemManager from "./ItemManager.js";
 import CanvasManager from "./CanvasManager.js";
 import { exportText, exportBlob } from "./exportFile.js";
 import ZoomManager from "./ZoomManager.js";
-import { getGuid } from "./utils.js";
 import { importJson, importZip } from "./importFile.js";
 import { Item } from "./Item.js";
 
+let gridBlockSizeInput = null
+let exportMarginInput = null
+
 export function initUi () {
-    document.querySelector("#reset").addEventListener("click", evt => {
+    /*=======================================================================================
+    ||                                 Grid UI                                        ||
+    =======================================================================================*/
+
+    gridBlockSizeInput = document.querySelector("#gridBlockSize")
+
+    document.querySelector("#gridReset").addEventListener("click", evt => {
         globalThis.itemCount = 0
         GridManager.reset()
         ZoomManager.reset()
     })
 
-    document.querySelector("#addRow").addEventListener("click", async evt => {
+    document.querySelector("#gridAddRow").addEventListener("click", async evt => {
         await GridManager.extendRows(1)
         GridManager.updateContainerSize()
         GridManager.updateLayout()
     })
 
-    document.querySelector("#addColumn").addEventListener("click", async evt => {
+    document.querySelector("#gridAddColumn").addEventListener("click", async evt => {
         await GridManager.extendColumns(1)
         GridManager.updateContainerSize()
         GridManager.updateLayout()
     })
 
-    document.querySelector("#fillGaps").addEventListener("click", GridManager.fixLayout.bind(GridManager))
+    document.querySelector("#gridFillGaps").addEventListener("click", GridManager.fixLayout.bind(GridManager))
 
-    document.querySelector("#cropEdges").addEventListener("click", evt => {
+    document.querySelector("#gridCropEdges").addEventListener("click", evt => {
         GridManager.cropEdges()
         GridManager.updateContainerSize()
         GridManager.updateLayout()
     })
 
-    document.querySelector("#saveSpritesheet").addEventListener("click", async evt => {
+    /*=======================================================================================
+    ||                                 Export UI                                        ||
+    =======================================================================================*/
+
+    exportMarginInput = document.querySelector("#exportMargin")
+    exportMarginInput.addEventListener("change", evt => {
+        GridManager.updateExportSizeLabels()
+    })
+
+    document.querySelector("#exportSpritesheet").addEventListener("click", async evt => {
         const file = await getSpritesheetData()
         exportBlob(file.content, file.name)
     })
 
-    document.querySelector("#saveLayout").addEventListener("click", evt => {
+    document.querySelector("#exportLayout").addEventListener("click", evt => {
         const file = getLayoutData()
         exportText(file.content, file.name)
     })
 
-    document.querySelector("#export").addEventListener("click", evt => {
+    document.querySelector("#exportConfig").addEventListener("click", evt => {
         const file = getLayoutData(true)
         exportText(file.content, file.name)
     })
 
-    document.querySelector("#import").addEventListener("click", importJson)
+    document.querySelector("#importConfig").addEventListener("click", importJson)
 
     document.querySelector("#exportZip").addEventListener("click", saveZip)
 
     document.querySelector("#importZip").addEventListener("click", importZip)
 }
 
-export function getBlockSize () {
-    return document.querySelector("#blockSize").value;
-}
-
-function setBlockSize (value) {
-    return document.querySelector("#blockSize").value = value;
-}
-
 export function getSpacing () {
-    return document.querySelector("#exportMargin").value;
+    return exportMarginInput.value;
 }
 
 function setSpacing (value) {
-    return document.querySelector("#exportMargin").value = value;
+    return exportMarginInput.value = value;
 }
 
 async function getSpritesheetData () {
@@ -164,7 +173,7 @@ export async function importConfig (json, fileName) {
 
     const meta = config.metadata
 
-    setBlockSize(meta.blockSize)
+    gridBlockSizeInput.value = meta.blockSize
     setSpacing(meta.spacing)
 
     ItemManager.reset()

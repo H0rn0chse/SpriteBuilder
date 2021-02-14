@@ -1,13 +1,24 @@
 class _InspectorManager {
     constructor () {
         this.element = document.querySelector("#inspector")
-        this.button = document.querySelector("#popoverButton")
+        this.button = document.querySelector("#inspectorButton")
         this.visible = false
+        // dev settings
+        //this.visible = true
+
+        this.nameInput = document.querySelector("#inspectorName")
+        this.metadataInput = document.querySelector("#inspectorMetadata")
     }
 
     init () {
         this.button.addEventListener("click", evt => {
             this.show(!this.visible)
+        })
+        document.querySelector("#inspectorUpdate").addEventListener("click", evt => {
+
+        })
+        document.querySelector("#inspectorDelete").addEventListener("click", evt => {
+
         })
     }
 

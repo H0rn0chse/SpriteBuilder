@@ -29,42 +29,50 @@
             <div class="top ui flexColumn">
                 <h1>SpriteBuilder</h1>
                 <div class="buttonBar" class="flexRow">
-                    <label>BlockSize: <input class="numberInput" id="blockSize" type="number" value="64"></input></label>
-                    <button id="reset">Reset</button>
-                    <button id="addRow">Add Row</button>
-                    <button id="addColumn">Add Column</button>
-                    <button id="cropEdges">Crop Edges</button>
-                    <button id="fillGaps">Fill Gaps</button>
-                    <label id="cols" class="labelText"></label>
-                    <label id="rows" class="labelText"></label>
+                    <label>BlockSize: <input class="numberInput" id="gridBlockSize" type="number" value="64"></input></label>
+                    <button id="gridReset">Reset</button>
+                    <button id="gridAddRow">Add Row</button>
+                    <button id="gridAddColumn">Add Column</button>
+                    <button id="gridCropEdges">Crop Edges</button>
+                    <button id="gridFillGaps">Fill Gaps</button>
+                    <label id="gridCols" class="labelText"></label>
+                    <label id="gridRows" class="labelText"></label>
                 </div>
                 <div class="buttonBar" class="flexRow">
                     <label>ExportSpacing: <input class="numberInput" id="exportMargin" type="number" value="0"></input></label>
-                    <button id="saveSpritesheet">Save Spritesheet</button>
-                    <button id="saveLayout" class="hidden">Save Layout</button>
-                    <button id="export" class="hidden">Export</button>
-                    <button id="import" class="hidden">Import</button>
+                    <button id="exportSpritesheet">Save Spritesheet</button>
+                    <button id="exportLayout" class="hidden">Save Layout</button>
+                    <button id="exportConfig" class="hidden">Export</button>
+                    <button id="importConfig" class="hidden">Import</button>
                     <button id="exportZip">Export</button>
                     <button id="importZip">Import</button>
-                    <label id="width" class="labelText"></label>
-                    <label id="height" class="labelText"></label>
+                    <label id="exportWidth" class="labelText"></label>
+                    <label id="exportHeight" class="labelText"></label>
                 </div>
             </div>
             <div class="side ui">
                 <div id="dropArea">
-                    <button id="addImage" class="dropAreaButton">Add Image</button>
+                    <button id="dropAddImage" class="dropAreaButton">Add Image</button>
                     <p>Drop Images here to add them to the grid</p>
                 </div>
             </div>
             <div id="scene" class="main">
                 <div id="grid"></div>
             </div>
-            <div id="inspector" class="popover">
-                <div id="popoverButton">
+            <div id="inspector" class="popover flexColumn">
+                <div id="inspectorButton" class="inspectorButton">
                     <div class="arrow left" data-feather="chevron-left"></div>
                     <div class="arrow right" data-feather="chevron-right"></div>
                 </div>
-                <p>Inspector Gadget</p>
+                <label>Name:</label>
+                <input id="inspectorName" type="text"></input>
+                <div class="spacer"></div>
+                <label>Metadata:</label>
+                <textarea id="inspectorMetadata" rows="10"></textarea >
+                <div class="bottomContent flexColumn">
+                    <button id="inspectorUpdate" class="inspectorButton">Update Sprite Image</button>
+                    <button id="inspectorDelete" class='error'>Delete Sprite</button>
+                </div>
             </div>
         </div>
         <div id="hidden">

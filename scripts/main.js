@@ -10,7 +10,7 @@ import InspectorManager from "./InspectorManager.js";
 export function init() {
     initUi()
     initImport()
-    initDrag(document.querySelector("#dropArea"), document.querySelector("#addImage"))
+    initDrag(document.querySelector("#dropArea"), document.querySelector("#dropAddImage"))
 
     ZoomManager.init()
     GridManager.init()

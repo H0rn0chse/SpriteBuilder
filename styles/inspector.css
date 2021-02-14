@@ -3,6 +3,10 @@
     left: 20em;
     border-top-left-radius: 5%;
     border-bottom-left-radius: 5%;
+    padding: 2em;
+
+    /* dev settings * /
+    left: 0em;*/
 }
 
 #inspector.show {
@@ -23,39 +27,43 @@
     left: 20em !important;
 }
 
-#popoverButton2 {
-    position: absolute;
-    top: 100px;
-    left: -70px;
-    width: 30px;
-    height: 60px;
-    background-color: #FFD324;
-    border-top-left-radius: 80%;
-    border-bottom-left-radius: 80%;
+#inspector .spacer {
+    height: 2em;
 }
 
-#popoverButton {
+#inspector textarea {
+    resize: none;
+}
+
+#inspector .bottomContent.flexColumn {
+    flex-grow: 1;
+    justify-content: flex-end;
+}
+
+.inspectorButton {
+    color: black;
+    background-color: #FFCE0A;
+}
+
+#inspectorButton {
     position: absolute;
-    top: 100px;
+    top: 150px;
     left: -30px;
     width: 30px;
     height: 60px;
-    background-color: #FFD324;
     border-top-left-radius: 80%;
     border-bottom-left-radius: 80%;
 }
 
-#popoverButton > .arrow {
+#inspectorButton > .arrow {
     width: 100%;
     height: 100%;
 }
 
-#popoverButton > .arrow.right {
+#inspectorButton > .arrow.right {
     display: none;
 }
 
-#inspector > p {
-    position: relative;
-    top: 2em;
-    left: 2em;
+#inspectorDelete {
+    background-color: #FF3D33;
 }

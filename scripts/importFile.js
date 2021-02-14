@@ -36,7 +36,7 @@ function addLoadFile () {
 	fileHandler.setAttribute("id", "FileHandler")
 	fileHandler.setAttribute("type", "file")
 
-	document.getElementById("hidden").appendChild(fileHandler)
+	document.querySelector("#hidden").appendChild(fileHandler)
 
 	return fileHandler
 }

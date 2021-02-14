@@ -1,6 +1,6 @@
 import { Item } from "./Item.js";
 import ItemManager from "./ItemManager.js";
-import { getBlockSize, getSpacing } from "./ui.js";
+import { getSpacing } from "./ui.js";
 
 // startup params
 const ROWS = 5
@@ -20,6 +20,12 @@ class _GridManager {
         this.rows = ROWS
         this.cols = COLS
         this.currentBlockSize = 64
+
+        this.gridBlockSizeInput = document.querySelector("#gridBlockSize")
+        this.gridRowsLabel = document.querySelector("#gridRows")
+        this.gridColsLabel = document.querySelector("#gridCols")
+        this.exportWidthLabel = document.querySelector("#exportWidth")
+        this.exportHeightLabel = document.querySelector("#exportHeight")
     }
 
     setBaseMargin (margin) {
@@ -55,26 +61,22 @@ class _GridManager {
 
         this.grid.on("layoutEnd", evt => {
             this._updateCurrentSizeLabels()
-            this._updateExportSizeLabels()
-        })
-
-        document.querySelector("#exportMargin").addEventListener("change", evt => {
-            this._updateExportSizeLabels()
+            this.updateExportSizeLabels()
         })
 
         this.reset()
     }
 
     _updateCurrentSizeLabels () {
-        document.querySelector("#rows").innerText = `No of rows: ${this.rows}`
-        document.querySelector("#cols").innerText = `No of columns: ${this.cols}`
+        this.gridRowsLabel.innerText = `No of rows: ${this.rows}`
+        this.gridColsLabel.innerText = `No of columns: ${this.cols}`
     }
 
-    _updateExportSizeLabels () {
+    updateExportSizeLabels () {
         const margin = getSpacing()
         const blockSize = parseInt(margin, 10) * 2 + parseInt(this.currentBlockSize, 10)
-        document.querySelector("#width").innerText = `ExportWidth: ${this.cols * blockSize}px`
-        document.querySelector("#height").innerText = `ExportHeight: ${this.rows * blockSize}px`
+        this.exportWidthLabel.innerText = `ExportWidth: ${this.cols * blockSize}px`
+        this.exportHeightLabel.innerText = `ExportHeight: ${this.rows * blockSize}px`
     }
 
     getLayout () {
@@ -93,7 +95,7 @@ class _GridManager {
     async reset () {
         this.rows = ROWS
         this.cols = COLS
-        this.currentBlockSize = getBlockSize()
+        this.currentBlockSize = this.gridBlockSizeInput.value
 
         this.resetMargin()
         this.removeAllItems()
@@ -125,7 +127,7 @@ class _GridManager {
      * CAUTION: This method may destroy the grid
      */
     updateBlockSize () {
-        this.currentBlockSize = getBlockSize()
+        this.currentBlockSize = this.gridBlockSizeInput.value
     }
 
     setDraggable (value) {
