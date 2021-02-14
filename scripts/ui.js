@@ -159,7 +159,10 @@ async function saveZip () {
     const configData = getLayoutData(true)
     zip.file(configData.name, configData.content)
 
-    const blob = await zip.generateAsync({type:"blob"})
+    const blob = await zip.generateAsync({
+        type:"blob",
+        compression: "DEFLATE"
+    })
     exportBlob(blob, "SpriteBuilder.zip")
 }
 
