@@ -62,6 +62,9 @@ export class Item {
         if (!this.src) {
             this.domRef.classList.add("empty-item")
         } else {
+            this.domRef.addEventListener("dblclick", evt => {
+                InspectorManager.show(true)
+            })
             this.domRef.addEventListener("click", evt => {
                 InspectorManager.load(this)
             })

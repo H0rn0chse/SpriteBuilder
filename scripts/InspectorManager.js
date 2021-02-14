@@ -54,6 +54,12 @@ class _InspectorManager {
                 this.nameMsg.innerText = "Saved"
             }
         })
+
+        document.addEventListener("keydown", evt => {
+            if (evt.key === "Escape") {
+                this.show(false)
+            }
+        })
     }
 
     reset () {
