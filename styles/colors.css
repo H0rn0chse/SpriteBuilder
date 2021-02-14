@@ -1,0 +1,21 @@
+:root {
+    --common-disabled: #dddddd;
+
+    --ui-bg: #e0ffff; /*lightcyan*/;
+
+    --drop-bg: #90ee90; /*lightgreen*/;
+    --drop-border: #243E36;
+    --drop-area: #7CA982;
+    --drop-area-hover: #AECCA4;
+
+    --grid-bg: #ffc0cb; /* pink */
+    --grid-placeholder: #00ff00; /* lime */
+    --grid-item-empty-font: #fff;
+    --grid-item-empty-bg: rgba(0,0,0,0.2);
+    --grid-item-selected: #FF1F44;
+
+    --inspector-bg:#F8E28B;
+    --inspector-btn: #FFCE0A;
+    --inspector-error: #FF3D33;
+    --inspector-success: #4FE34F;
+}

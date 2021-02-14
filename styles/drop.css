@@ -2,9 +2,9 @@
     width: calc(100% - 2em);
     height: calc(100% - 4em);
     margin: 2em 1em;
-    background-color: #7CA982;
+    background-color: var(--drop-area);
 
-    border-color: #243E36;
+    border-color: var(--drop-border);
     border-style: solid;
     border-radius: 30px;
     border-width: 5px;
@@ -17,7 +17,7 @@
 }
 
 #dropArea.light {
-    background-color: #AECCA4
+    background-color: var(--drop-area-hover)
 }
 
 #dropArea > * {
@@ -25,5 +25,5 @@
 }
 
 .dropAreaButton {
-    background-color: #243E36;
+    background-color: var(--drop-border);
 }

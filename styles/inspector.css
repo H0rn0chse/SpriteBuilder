@@ -30,7 +30,7 @@
 
 .inspectorButton {
     color: black;
-    background-color: #FFCE0A;
+    background-color: var(--inspector-btn);
 }
 
 #inspectorButton {
@@ -54,7 +54,7 @@
 }
 
 #inspectorDelete {
-    background-color: #FF3D33;
+    background-color: var(--inspector-error);
 }
 
 #inspector .msg {
@@ -63,9 +63,9 @@
 }
 
 #inspector .msg.error {
-    color: #FF3D33
+    color: var(--inspector-error);
 }
 
 #inspector .msg.success {
-    color: #4FE34F
+    color: var(--inspector-success);
 }

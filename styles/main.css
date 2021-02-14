@@ -1,3 +1,11 @@
+@import "colors.css";
+@import "drop.css";
+@import "grid.css";
+@import "help.css";
+@import "inspector.css";
+@import "ui.css";
+@import "zoom.css";
+
 body {
     margin: 0;
     padding: 0;
@@ -24,7 +32,7 @@ body {
 }
 
 :disabled {
-    background-color: #dddddd;
+    background-color: var(--common-disabled);
 }
 
 /*
@@ -39,12 +47,12 @@ body {
 
 .top {
     grid-area: top;
-    background-color: #e0ffff; /*lightcyan*/
+    background-color: var(--ui-bg)
 }
 
 .side {
     grid-area: side;
-    background-color: #90ee90; /*lightgreen*/
+    background-color: var(--drop-bg)
 }
 
 .main {
@@ -53,7 +61,7 @@ body {
 
 .popover {
     grid-area: popover;
-    background-color: #F8E28B;
+    background-color: var(--inspector-bg);
 }
 
 .flexRow {

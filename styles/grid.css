@@ -2,14 +2,14 @@
     position: absolute;
     width: 0;
     height: 0;
-    background-color: #ffc0cb; /* pink */
+    background-color: var(--grid-bg)
 }
 
 .empty-item {
     border-radius: 25%;
     text-align: center;
-    background: rgba(0,0,0,0.2);
-    color: #fff;
+    background: var(--grid-item-empty-bg);
+    color: var(--grid-item-empty-font);
 }
 
 .item {
@@ -21,7 +21,7 @@
 
 .item.selected {
     border-radius: 10px;
-    box-shadow: 0 0 5px 1px #FF1F44;
+    box-shadow: 0 0 5px 1px var(--grid-item-selected);
 }
 
 .item-save-margin {
@@ -29,7 +29,7 @@
 }
 
 .muuri-item-placeholder {
-    background-color: lime;
+    background-color: var(--grid-placeholder);
     border-radius: 25%;
 }
 
