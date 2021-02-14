@@ -1,6 +1,7 @@
 import { Deferred } from "./Deferred.js";
 import { importImage, importDataURL } from "./importFile.js";
 import { addItem } from "./main.js";
+import GridManager from "./GridManager.js"
 
 let dragArea
 
@@ -21,6 +22,7 @@ export function initDrag (area, button) {
         for (let i = 0; i < images.length; i++) {
             await addItem(images[i].content, images[i].name)
         }
+        await GridManager.fixLayout()
     })
 }
 
@@ -92,5 +94,6 @@ async function handleDrop (evt) {
         for (let i = 0; i < images.length; i++) {
             await addItem(images[i].content, images[i].name)
         }
+        await GridManager.fixLayout()
     }
 }

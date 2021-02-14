@@ -56,7 +56,10 @@ export function initUi () {
         exportBlob(file.content, file.name)
     })
 
-    document.querySelector("#exportZip").addEventListener("click", saveZip)
+    document.querySelector("#exportZip").addEventListener("click", async evt => {
+        await GridManager.fixLayout()
+        await saveZip()
+    })
 
     document.querySelector("#importZip").addEventListener("click", async evt => {
         const zip = await importZip()
