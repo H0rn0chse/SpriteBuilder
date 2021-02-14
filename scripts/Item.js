@@ -4,18 +4,21 @@ import { getGuid } from "./utils.js";
 globalThis.itemNameCache = []
 
 export class Item {
-    constructor (src, name = "") {
-        if (!name || globalThis.itemNameCache.includes(name)) {
-            name = `${name}_${getGuid()}`
-        }
-        globalThis.itemNameCache.push(name)
-        this.name = name
+    constructor (src, name = "", originalName = null) {
+        this.loaded = new Deferred()
+
         this.src = src
         this.rows = 1
         this.cols = 1
         this.margin = 0
 
-        this.loaded = new Deferred()
+        this.originalName = originalName !== null ? originalName : name
+
+        if (!name || globalThis.itemNameCache.includes(name)) {
+            name = `${name}_${getGuid()}`
+        }
+        globalThis.itemNameCache.push(name)
+        this.name = name
 
         this.domRef = null
         this._createItem()
@@ -78,5 +81,13 @@ export class Item {
         this.domRef.style.marginLeft = this.cols * layout.margin + "px"
         this.domRef.style.width = this.cols * layout.blockSize + "px"
         this.domRef.style.height = this.rows * layout.blockSize + "px"
+    }
+
+    destroy () {
+        const cache = globalThis.itemNameCache
+        const index = cache.indexOf(this.name)
+        if (index > -1) {
+            cache.splice(index, 1)
+        }
     }
 }

@@ -137,6 +137,7 @@ function getLayoutData (saveImageData = false) {
         if (saveImageData) {
             layoutData.sprites[metadata.name].src = image.src
             layoutData.sprites[metadata.name].index = metadata.index
+            layoutData.sprites[metadata.name].originalName = metadata.originalName
         }
     })
 
@@ -188,7 +189,7 @@ export async function importConfig (json, fileName) {
     })
 
     for (let i = 0; i < images.length; i++) {
-        const item = new Item(images[i].src, images[i].name)
+        const item = new Item(images[i].src, images[i].name, images[i].originalName)
         await ItemManager.importItem(item, images[i].index)
     }
 

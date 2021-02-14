@@ -33,6 +33,7 @@ class _ItemManager {
     reset () {
         this.items.clear()
         this.placeholder.clear()
+        globalThis.itemNameCache = []
     }
 
     /**
@@ -109,6 +110,7 @@ class _ItemManager {
             item = getKeyByValue(this.items, muuriItem)
             this.items.delete(item)
         }
+        item.destroy()
     }
 
     /**
@@ -125,8 +127,7 @@ class _ItemManager {
 
         for (let i = 0; i < count; i++) {
             const muuriItem = muuriItems.splice(0, 1)[0]
-            const item = getKeyByValue(this.placeholder, muuriItem)
-            this.placeholder.delete(item)
+            this.removeItem(muuriItem)
             removedElements.push(muuriItem)
         }
 
@@ -156,6 +157,7 @@ class _ItemManager {
             const metadata = {
                 index: GridManager.getItemIndex(muuriItem),
                 name: item.name,
+                originalName: item.originalName,
                 top: muuriItem.top,
                 left: muuriItem.left,
                 marginTop: muuriItem.marginTop,
