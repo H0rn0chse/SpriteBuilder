@@ -87,7 +87,8 @@ export class Item {
 
             this.contentRef.appendChild(this.imageRef)
         } else {
-            this.contentRef.innerText = ++globalThis.itemCount
+            // dev content
+            //this.contentRef.innerText = ++globalThis.itemCount
             this.updateDimensions()
             this.loaded.resolve()
         }
