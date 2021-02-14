@@ -1,6 +1,7 @@
 import GridManager from "./GridManager.js";
 import { Item } from "./Item.js";
 import { getKeyByValue } from "./utils.js";
+import InspectorManager from "./InspectorManager.js";
 
 /**
  * MuuriItem
@@ -33,6 +34,7 @@ class _ItemManager {
     reset () {
         this.items.clear()
         this.placeholder.clear()
+        InspectorManager.reset()
         globalThis.itemNameCache = []
     }
 

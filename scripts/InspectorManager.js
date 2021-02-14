@@ -4,8 +4,9 @@ class _InspectorManager {
         this.button = document.querySelector("#inspectorButton")
         this.visible = false
         // dev settings
-        //this.visible = true
+        this.visible = true
 
+        this.nameMsg = document.querySelector("#inspectorNameMsg")
         this.nameInput = document.querySelector("#inspectorName")
         this.metadataInput = document.querySelector("#inspectorMetadata")
 
@@ -22,6 +23,40 @@ class _InspectorManager {
         document.querySelector("#inspectorDelete").addEventListener("click", evt => {
 
         })
+
+        this.nameInput.addEventListener("focusin", evt => {
+            this.nameBackup = this.nameInput.value
+            this.nameMsg.innerText = ""
+        })
+
+        this.nameInput.addEventListener("focusout", evt => {
+            const newName = this.nameInput.value
+            if (newName === this.nameBackup) {
+                return
+            }
+            this.nameMsg.classList.remove("error")
+            this.nameMsg.classList.remove("success")
+
+            if (!this._updateName(newName)) {
+                this.nameMsg.classList.add("error")
+                this.nameInput.value = this.nameBackup
+
+                if (!newName) {
+                    this.nameMsg.innerText = "A name is required!"
+                } else  if (this.currentItem !== null) {
+                    this.nameMsg.innerText = "This name was alread used!"
+                }
+            } else {
+                this.nameMsg.classList.add("success")
+                this.nameMsg.innerText = "Saved"
+            }
+        })
+    }
+
+    reset () {
+        this.currentItem = null
+        this.nameInput.value = ""
+        this.metadataInput.value = ""
     }
 
     show (show) {
@@ -40,26 +75,30 @@ class _InspectorManager {
             this.button.querySelector(".arrow.right").style.display = "none"
         }
         this.visible = !!show
-        this.selectCurrentItem(this.visible)
+        this._selectCurrentItem(this.visible)
     }
 
-    selectCurrentItem (value) {
+    _selectCurrentItem (value) {
         if (this.currentItem && this.currentItem.setSelected) {
             this.currentItem.setSelected(!!value)
         }
     }
 
+    _updateName (name) {
+        if (name && this.currentItem && this.currentItem.updateName) {
+            return this.currentItem.updateName(name)
+        }
+        return false
+    }
+
     load (item) {
-        // cleanup
-        if (this.currentItem && this.currentItem.setSelected) {
-            this.currentItem.setSelected(false)
-        }
+        // unselect old item
+        this._selectCurrentItem(false)
 
-        if (this,this.visible) {
-            item.setSelected(true)
-        }
-
+        // select new item
         this.currentItem = item
+        this._selectCurrentItem(this.visible)
+
         this.nameInput.value = item.name
     }
 }

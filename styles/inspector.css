@@ -5,8 +5,8 @@
     border-bottom-left-radius: 5%;
     padding: 2em;
 
-    /* dev settings * /
-    left: 0em;*/
+    /* dev settings */
+    left: 0em;
 }
 
 #inspector.show {
@@ -66,4 +66,17 @@
 
 #inspectorDelete {
     background-color: #FF3D33;
+}
+
+#inspector .msg {
+    margin-left: 1em;
+    font-size: 0.75em;
+}
+
+#inspector .msg.error {
+    color: #FF3D33
+}
+
+#inspector .msg.success {
+    color: #4FE34F
 }

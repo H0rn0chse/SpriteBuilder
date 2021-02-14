@@ -64,8 +64,11 @@
                     <div class="arrow left" data-feather="chevron-left"></div>
                     <div class="arrow right" data-feather="chevron-right"></div>
                 </div>
-                <label>Name:</label>
-                <input id="inspectorName" type="text"></input>
+                <div class="flexRow">
+                    <label>Name:</label>
+                    <label id="inspectorNameMsg" class="msg"></label>
+                </div>
+                <input id="inspectorName" class="tooltip-top" type="text"></input>
                 <div class="spacer"></div>
                 <label>Metadata:</label>
                 <textarea disabled id="inspectorMetadata" rows="10"></textarea >

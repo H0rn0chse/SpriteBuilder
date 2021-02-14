@@ -178,7 +178,7 @@ class _GridManager {
                 return index
             }
             return acc
-        }, 0)
+        }, -1)
         return indexChanged ? index + 1 : 0
     }
 

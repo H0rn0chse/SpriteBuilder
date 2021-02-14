@@ -29,6 +29,21 @@ export class Item {
         this._createContent()
     }
 
+    updateName (name) {
+        const cache = globalThis.itemNameCache
+        if (cache.includes(name)) {
+            return false
+        }
+
+        const index = cache.indexOf(this.name)
+        if (index > -1) {
+            cache.splice(index, 1)
+        }
+        this.name = name
+        cache.push(name)
+        return true
+    }
+
     _createItem () {
         this.domRef = document.createElement("div")
         this.domRef.classList.add("item")
