@@ -1,6 +1,10 @@
 export function exportText (content, fileName) {
     const a = document.createElement("a")
-    a.setAttribute("href", "data:text/plain;charset=utf-8," + encodeURIComponent(content))
+    // data string is not encoded yet
+    if (!content.startsWith("data:")) {
+        content = "data:text/plain;charset=utf-8," + encodeURIComponent(content)
+    }
+    a.setAttribute("href", content)
     a.setAttribute("download", fileName);
     a.click()
 }

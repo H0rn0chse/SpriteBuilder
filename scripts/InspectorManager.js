@@ -2,6 +2,7 @@ import ItemManager from "./ItemManager.js";
 import GridManager from "./GridManager.js";
 import { importImage } from "./importFile.js";
 import { insertTextAtCaret } from "./utils.js"
+import { exportText } from "./exportFile.js";
 
 class _InspectorManager {
     constructor () {
@@ -30,6 +31,12 @@ class _InspectorManager {
                 return
             }
             this._updateSprite()
+        })
+        document.querySelector("#inspectorDownload").addEventListener("click", evt => {
+            if (!this.currentItem) {
+                return
+            }
+            this._downloadSprite()
         })
         document.querySelector("#inspectorDelete").addEventListener("click", evt => {
             if (!this.currentItem) {
@@ -185,6 +192,10 @@ class _InspectorManager {
         GridManager.refreshAll()
         GridManager.updateContainerSize()
         await GridManager.fixLayout()
+    }
+
+    _downloadSprite () {
+        exportText(this.currentItem.src, this.currentItem.name);
     }
 
     load (item) {
