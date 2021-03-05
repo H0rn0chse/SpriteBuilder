@@ -17,6 +17,12 @@ CanvasManager.init()
 InspectorManager.init()
 feather.replace();
 
+const acknowledgements = document.querySelector("#acknowledgements");
+acknowledgements.innerHTML = feather.icons["award"].toSvg({ color: "#e2b007" });
+acknowledgements.addEventListener("click", evt => {
+    window.open("./acknowledgements/third-party-licenses.html", '_blank')
+}, { passive: true });
+
 export async function addItem (src, name) {
     const item = new Item(src, name)
 

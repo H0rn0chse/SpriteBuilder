@@ -64,6 +64,21 @@ body {
     background-color: var(--inspector-bg);
 }
 
+#acknowledgements {
+    position: absolute;
+    width: 3em;
+    height: 3em;
+    top: 0.5em;
+    right: 4.5em;
+    cursor: pointer;
+    z-index: 100;
+}
+
+#acknowledgements > svg{
+    height: 100%;
+    width: 100%;
+}
+
 .flexRow {
     display: flex;
     flex-direction: row;

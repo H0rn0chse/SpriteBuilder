@@ -1,0 +1,176 @@
+[
+    {
+      "name": "Muuri",
+      "uri": "https://github.com/haltu/muuri",
+      "role": "main"
+    },
+    {
+      "name": "Picnic CSS",
+      "uri": "https://github.com/franciscop/picnic",
+      "role": "main"
+    },
+    {
+      "name": "github-corners",
+      "uri": "https://github.com/remarkablemark/github-corners",
+      "role": "main"
+    },
+    {
+      "name": "Feather",
+      "uri": "https://github.com/feathericons/feather",
+      "role": "main"
+    },
+    {
+      "name": "core-js",
+      "uri": "https://github.com/zloirock/core-js",
+      "role": "inherited",
+      "parents": [
+        "Feather"
+      ]
+    },
+    {
+      "name": "classnames",
+      "uri": "https://github.com/JedWatson/classnames",
+      "role": "inherited",
+      "parents": [
+        "Feather"
+      ]
+    },
+    {
+      "name": "panzoom",
+      "uri": "https://github.com/anvaka/panzoom",
+      "role": "main"
+    },
+    {
+      "name": "amator",
+      "uri": "https://github.com/anvaka/amator",
+      "role": "inherited",
+      "parents": [
+        "panzoom"
+      ]
+    },
+    {
+      "name": "bezier-easing",
+      "uri": "https://github.com/gre/bezier-easing",
+      "role": "inherited",
+      "parents": [
+        "panzoom"
+      ]
+    },
+    {
+      "name": "wheel",
+      "uri": "https://github.com/anvaka/wheel",
+      "role": "inherited",
+      "parents": [
+        "panzoom"
+      ]
+    },
+    {
+      "name": "ngraph.events",
+      "uri": "https://github.com/anvaka/ngraph.events",
+      "role": "inherited",
+      "parents": [
+        "panzoom"
+      ]
+    },
+    {
+      "name": "jszip",
+      "uri": "https://github.com/Stuk/jszip",
+      "role": "main"
+    },
+    {
+      "name": "set-immediate-shim",
+      "uri": "https://github.com/sindresorhus/set-immediate-shim",
+      "role": "inherited",
+      "parents": [
+        "jszip"
+      ]
+    },
+    {
+      "name": "lie",
+      "uri": "https://github.com/calvinmetcalf/lie",
+      "role": "inherited",
+      "parents": [
+        "jszip"
+      ]
+    },
+    {
+      "name": "immediate",
+      "uri": "https://github.com/calvinmetcalf/immediate",
+      "role": "inherited",
+      "parents": [
+        "jszip"
+      ]
+    },
+    {
+      "name": "pako",
+      "uri": "https://github.com/nodeca/pako",
+      "role": "inherited",
+      "parents": [
+        "jszip"
+      ]
+    },
+    {
+      "name": "readable-stream",
+      "uri": "https://github.com/nodejs/readable-stream",
+      "role": "inherited",
+      "parents": [
+        "jszip"
+      ]
+    },
+    {
+      "name": "process-nextick-args",
+      "uri": "https://github.com/calvinmetcalf/process-nextick-args",
+      "role": "inherited",
+      "parents": [
+        "jszip"
+      ]
+    },
+    {
+      "name": "util-deprecate",
+      "uri": "https://github.com/TooTallNate/util-deprecate",
+      "role": "inherited",
+      "parents": [
+        "jszip"
+      ]
+    },
+    {
+      "name": "string_decoder",
+      "uri": "https://github.com/nodejs/string_decoder",
+      "role": "inherited",
+      "parents": [
+        "jszip"
+      ]
+    },
+    {
+      "name": "safe-buffer",
+      "uri": "https://github.com/feross/safe-buffer",
+      "role": "inherited",
+      "parents": [
+        "jszip"
+      ]
+    },
+    {
+      "name": "isarray",
+      "uri": "https://github.com/juliangruber/isarray",
+      "role": "inherited",
+      "parents": [
+        "jszip"
+      ]
+    },
+    {
+      "name": "inherits",
+      "uri": "https://github.com/isaacs/inherits",
+      "role": "inherited",
+      "parents": [
+        "jszip"
+      ]
+    },
+    {
+      "name": "core-util-is",
+      "uri": "https://github.com/isaacs/core-util-is",
+      "role": "inherited",
+      "parents": [
+        "jszip"
+      ]
+    }
+  ]
