@@ -7,16 +7,15 @@ import { initUi } from "./ui.js";
 import ZoomManager from "./ZoomManager.js";
 import InspectorManager from "./InspectorManager.js";
 
-export function init() {
-    initUi()
-    initImport()
-    initDrag(document.querySelector("#dropArea"), document.querySelector("#dropAddImage"))
+initUi()
+initImport()
+initDrag(document.querySelector("#dropArea"), document.querySelector("#dropAddImage"))
 
-    ZoomManager.init()
-    GridManager.init()
-    CanvasManager.init()
-    InspectorManager.init()
-}
+ZoomManager.init()
+GridManager.init()
+CanvasManager.init()
+InspectorManager.init()
+feather.replace();
 
 export async function addItem (src, name) {
     const item = new Item(src, name)
