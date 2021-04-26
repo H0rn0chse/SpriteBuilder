@@ -1,10 +1,11 @@
 import GridManager from "./GridManager.js";
 import ItemManager from "./ItemManager.js";
 import CanvasManager from "./CanvasManager.js";
-import { exportBlob } from "./exportFile.js";
+import { exportBlob, exportText } from "./exportFile.js";
 import ZoomManager from "./ZoomManager.js";
 import { importZip } from "./importFile.js";
 import { Item } from "./Item.js";
+import { layoutDataToAtlasJson, layoutDataToAtlasXml } from "./Converter.js";
 
 let gridBlockSizeInput = null
 let exportMarginInput = null
@@ -54,6 +55,18 @@ export function initUi () {
     document.querySelector("#exportSpritesheet").addEventListener("click", async evt => {
         const file = await getSpritesheetData()
         exportBlob(file.content, file.name)
+    })
+
+    document.querySelector("#exportAtlasXml").addEventListener("click", async evt => {
+        let file = await getLayoutData(true)
+        file = layoutDataToAtlasXml(file)
+        exportText(file.content, file.name)
+    })
+
+    document.querySelector("#exportAtlasJson").addEventListener("click", async evt => {
+        let file = await getLayoutData(true)
+        file = layoutDataToAtlasJson(file)
+        exportText(file.content, file.name)
     })
 
     document.querySelector("#exportZip").addEventListener("click", async evt => {
@@ -112,11 +125,12 @@ async function getSpritesheetData () {
     }
 }
 
-function getLayoutData (saveImageData = false) {
+async function getLayoutData (saveImageData = false) {
     // set margins
     const margin = getSpacing()
     GridManager.setMargin(margin)
 
+    const gridSize = GridManager.getActualSize()
     const images = ItemManager.getImages()
 
     GridManager.resetMargin(margin)
@@ -128,6 +142,8 @@ function getLayoutData (saveImageData = false) {
 
     if (saveImageData) {
         const layout = GridManager.getLayout()
+        layoutData.metadata.width = gridSize.width
+        layoutData.metadata.height = gridSize.height
         layoutData.metadata.margin = layout.margin
         layoutData.metadata.blockSize = layout.blockSize
         layoutData.metadata.spacing = getSpacing()

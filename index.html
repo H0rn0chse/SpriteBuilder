@@ -32,6 +32,16 @@
                 <div class="buttonBar flexRow">
                     <label>ExportSpacing: <input class="numberInput" id="exportMargin" type="number" value="0"></input></label>
                     <button id="exportSpritesheet">Save Spritesheet</button>
+                    <div class="splitbutton">
+                        <button>
+                            <span>&nbsp;</span>
+                            <i data-feather="chevron-down"></i>
+                        </button>
+                        <div class="splitbutton-content">
+                            <a id="exportAtlasXml">Atlas xml</a>
+                            <a id="exportAtlasJson">Atlas json</a>
+                        </div>
+                    </div>
                     <button id="exportZip">Export</button>
                     <button id="importZip">Import</button>
                     <label id="exportWidth" class="text"></label>
