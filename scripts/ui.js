@@ -179,10 +179,10 @@ async function saveZip () {
     const spritesheet = await getSpritesheetData()
     zip.file(spritesheet.name, spritesheet.content)
 
-    const layoutData = getLayoutData()
+    const layoutData = await getLayoutData()
     zip.file(layoutData.name, layoutData.content)
 
-    const configData = getLayoutData(true)
+    const configData = await getLayoutData(true)
     zip.file(configData.name, configData.content)
 
     const blob = await zip.generateAsync({
