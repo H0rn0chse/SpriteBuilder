@@ -2,6 +2,7 @@
   "name": "spritebuilder",
   "version": "1.0.0",
   "description": "",
+  "type": "module",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -9,11 +10,11 @@
   },
   "author": "",
   "license": "GPL-3.0",
-  "dependencies": {},
+  "dependencies": {
+    "@h0rn0chse/socket-server": "^1.1.1"
+  },
   "devDependencies": {
-    "connect": "^3.7.0",
     "eslint": "^7.19.0",
-    "moment": "^2.29.1",
-    "serve-static": "^1.14.1"
+    "moment": "^2.29.1"
   }
 }
