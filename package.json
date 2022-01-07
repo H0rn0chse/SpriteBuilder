@@ -10,10 +10,9 @@
   },
   "author": "",
   "license": "GPL-3.0",
-  "dependencies": {
-    "@h0rn0chse/socket-server": "^1.1.1"
-  },
+  "dependencies": {},
   "devDependencies": {
+    "@h0rn0chse/socket-server": "^1.1.1",
     "eslint": "^7.19.0",
     "moment": "^2.29.1"
   }
