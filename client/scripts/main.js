@@ -24,3 +24,8 @@ export async function addItem (src, name) {
     GridManager.updateContainerSize()
     GridManager.updateLayout()
 }
+
+// Fix GithubCorner styling
+const style = document.createElement("style")
+style.innerHTML = ".github-corner { z-index: 10; }"
+document.querySelector("#github-corner").shadowRoot.appendChild(style)
