@@ -1,0 +1,90 @@
+@import "colors.css";
+@import "splitbutton.css";
+@import "drop.css";
+@import "grid.css";
+@import "help.css";
+@import "inspector.css";
+@import "ui.css";
+@import "zoom.css";
+
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+#container {
+    height: 100vh;
+    width: 100vw;
+    display: grid;
+    grid-template-columns: 15em auto 20em;
+    grid-template-rows: 11em auto;
+    grid-template-areas:
+        "top top top"
+        "side main popover";
+}
+
+#hidden {
+    display: none;
+}
+
+.hidden {
+    display: none;
+}
+
+:disabled {
+    background-color: var(--common-disabled);
+}
+
+/*
+#hidden > canvas{
+    display: inherit;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    z-index: 10;
+    border: solid black;
+}*/
+
+.top {
+    grid-area: top;
+    background-color: var(--ui-bg)
+}
+
+.side {
+    grid-area: side;
+    background-color: var(--drop-bg)
+}
+
+.main {
+    grid-area: main;
+}
+
+.popover {
+    grid-area: popover;
+    background-color: var(--inspector-bg);
+}
+
+.flexRow {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.flexColumn {
+    display: flex;
+    flex-direction: column;
+}
+
+.endContent {
+    flex-grow: 1;
+    justify-content: flex-end;
+}
+
+.spacer {
+    height: 2em;
+}
+
+.smallButton {
+    font-size: .75em;
+}

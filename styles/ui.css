@@ -1,0 +1,21 @@
+.ui.top h1 {
+    padding: 0.5em;
+    padding-left: 0.8em;
+}
+
+.buttonBar > * {
+    margin-left: 1em;
+}
+
+.buttonBar .numberInput {
+    max-width: 5em;
+}
+
+.text {
+    cursor: default;
+}
+
+#help {
+    margin-right: 2em;
+    cursor: pointer;
+}

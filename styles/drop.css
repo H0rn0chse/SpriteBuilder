@@ -1,0 +1,29 @@
+#dropArea {
+    width: calc(100% - 2em);
+    height: calc(100% - 4em);
+    margin: 2em 1em;
+    background-color: var(--drop-area);
+
+    border-color: var(--drop-border);
+    border-style: solid;
+    border-radius: 30px;
+    border-width: 5px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+#dropArea.light {
+    background-color: var(--drop-area-hover)
+}
+
+#dropArea > * {
+    margin: 5px;
+}
+
+.dropAreaButton {
+    background-color: var(--drop-border);
+}

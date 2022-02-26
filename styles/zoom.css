@@ -1,0 +1,7 @@
+.ui {
+    z-index: 5;
+}
+
+#scene {
+    z-index: 0;
+}
