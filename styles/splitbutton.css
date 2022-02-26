@@ -1,0 +1,40 @@
+.splitbutton {
+    margin-left: 0 !important;
+    display: inline-block;
+    position: relative;
+}
+
+.splitbutton > button {
+    border-left: 1px solid white !important;
+    padding-left: 0;
+    padding-right: 0.2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.splitbutton-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    z-index: 1;
+    right: 0;
+    margin-top: -0.3em;
+}
+
+.splitbutton-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    cursor: pointer;
+}
+
+.splitbutton-content a:hover {
+    background-color: #ddd
+}
+
+.splitbutton:hover .splitbutton-content {
+    display: block;
+}

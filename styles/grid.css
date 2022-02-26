@@ -1,0 +1,52 @@
+#grid {
+    position: absolute;
+    width: 0;
+    height: 0;
+    background-color: var(--grid-bg)
+}
+
+.empty-item {
+    border-radius: 25%;
+    text-align: center;
+    background: var(--grid-item-empty-bg);
+    color: var(--grid-item-empty-font);
+}
+
+.item {
+    display: block;
+    position: absolute;
+    z-index: 1;
+    margin: 5px;
+}
+
+.item.selected {
+    border-radius: 10px;
+    box-shadow: 0 0 5px 1px var(--grid-item-selected);
+}
+
+.item-save-margin {
+    margin: 0px !important;
+}
+
+.muuri-item-placeholder {
+    background-color: var(--grid-placeholder);
+    border-radius: 25%;
+}
+
+.item.muuri-item-dragging {
+    z-index: 3;
+}
+
+.item.muuri-item-releasing {
+    z-index: 2;
+}
+
+.item.muuri-item-hidden {
+    z-index: 0;
+}
+
+.item-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}

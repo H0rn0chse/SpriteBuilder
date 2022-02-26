@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="utf-8">
+        <title>SpriteBuilder</title>
+        <link rel="icon" type="image/png" href="./img/favicon32.png" sizes="32x32">
+        <link rel="icon" type="image/png" href="./img/favicon96.png" sizes="96x96">
+        <link rel="apple-touch-icon" sizes="180x180" href="./img/favicon180.png">
+        <!-- anonymized statistics-->
+        <script async defer data-website-id="95ae3dc9-4bd7-47ea-9de4-526587633863" src="https://h0rn0chse-umami.up.railway.app/WQ4fyxmP2iMY.js"></script>
+
+        <!-- Custom Dependencies -->
+        <script src="./libs/muuri.min.js"></script>
+
+        <!-- Dependencies -->
+        <script src="./libs/jszip/jszip.min.js" defer></script>
+        <script src="./libs/panzoom/panzoom.min.js" defer></script>
+        <script src="./libs/feather-icons/feather.min.js" defer></script>
+        <script type="module" src="./libs/wc-github-corners/index.es.js"></script>
+        <link rel="stylesheet" href="./libs/picnic/picnic.min.css">
+
+        <link rel="stylesheet" type="text/css" href="./styles/main.css">
+        <script type="module" src="./scripts/main.js"></script>
+    </head>
+    <body>
+        <div id="container">
+            <div class="top ui flexColumn">
+                <h1 class="text">SpriteBuilder</h1>
+                <div class="buttonBar flexRow">
+                    <label>BlockSize: <input class="numberInput" id="gridBlockSize" type="number" value="64"></input></label>
+                    <button id="gridReset">Reset</button>
+                    <button id="gridAddRow">Add Row</button>
+                    <button id="gridAddColumn">Add Column</button>
+                    <button id="gridCropEdges">Crop Edges</button>
+                    <button id="gridFillGaps">Fill Gaps</button>
+                    <label id="gridCols" class="text"></label>
+                    <label id="gridRows" class="text"></label>
+                </div>
+                <div class="buttonBar flexRow">
+                    <label>ExportSpacing: <input class="numberInput" id="exportMargin" type="number" value="0"></input></label>
+                    <button id="exportSpritesheet">Save Spritesheet</button>
+                    <div class="splitbutton">
+                        <button>
+                            <span>&nbsp;</span>
+                            <i data-feather="chevron-down"></i>
+                        </button>
+                        <div class="splitbutton-content">
+                            <a id="exportAtlasXml">Atlas xml</a>
+                            <a id="exportAtlasJson">Atlas json</a>
+                        </div>
+                    </div>
+                    <button id="exportZip">Export</button>
+                    <button id="importZip">Import</button>
+                    <label id="exportWidth" class="text"></label>
+                    <label id="exportHeight" class="text"></label>
+                    <div class="endContent flexRow">
+                        <label id="help" for="helpModal" class="button">Help</label>
+                    </div>
+                </div>
+            </div>
+            <div class="side ui">
+                <div id="dropArea">
+                    <button id="dropAddImage" class="dropAreaButton">Add Image</button>
+                    <p>Drop Images here to add them to the grid</p>
+                </div>
+            </div>
+            <div id="scene" class="main">
+                <div id="grid"></div>
+            </div>
+            <div id="inspector" class="popover flexColumn">
+                <div id="inspectorButton" class="inspectorButton">
+                    <div class="arrow left" data-feather="chevron-left"></div>
+                    <div class="arrow right" data-feather="chevron-right"></div>
+                </div>
+                <div class="flexRow">
+                    <label id="inspectorNameLbl">Name:</label>
+                    <label id="inspectorNameMsg" class="msg"></label>
+                </div>
+                <input id="inspectorName" class="tooltip-top" type="text"></input>
+                <div class="spacer"></div>
+                <div class="flexRow">
+                    <label id="inspectorMetadataLbl">Metadata:</label>
+                    <label id="inspectorMetadataMsg" class="msg"></label>
+                </div>
+                <textarea id="inspectorMetadata" rows="10" spellcheck="false"></textarea >
+                <label><button id="inspectorMetadataSave" class="inspectorButton smallButton">Save Metadata</button></label>
+                <div class="endContent flexColumn">
+                    <button id="inspectorDownload" class="inspectorButton">Download Sprite Image</button>
+                    <button id="inspectorUpdate" class="inspectorButton">Update Sprite Image</button>
+                    <button id="inspectorDelete" class='error'>Delete Sprite</button>
+                </div>
+            </div>
+        </div>
+        <div class="modal">
+            <input id="helpModal" type="checkbox" />
+            <label for="helpModal" class="overlay"></label>
+            <article id="helpModalContent">
+                <header>
+                    <h3 class="text">Help</h3>
+                    <label for="helpModal" class="close">&times;</label>
+                </header>
+                <section class="content flexColumn">
+                    <h4 class="text">Controls</h4>
+                    <div class="rowItem">
+                        <label class="text">Move Grid</label>
+                        <label class="text">-</label>
+                        <label class="text">Ctrl + Drag / Shift + Drag</label>
+                    </div>
+                    <div class="rowItem">
+                        <label class="text">Open Inspector</label>
+                        <label class="text">-</label>
+                        <label class="text">Double Click on Sprite</label>
+                    </div>
+                    <div class="rowItem">
+                        <label class="text">Close Inspector</label>
+                        <label class="text">-</label>
+                        <label class="text">Esc</label>
+                    </div>
+                    <div class="spacer"></div>
+                    <a href="https://github.com/H0rn0chse/SpriteBuilder#faq" target="_blank"><h4 class="text">FAQ</h4></a>
+                </section>
+                <footer class="flexRow">
+                    <div class="endContent flexRow">
+                        <label for="helpModal" picnic="button">Close</label>
+                    </div>
+                </footer>
+            </article>
+        </div>
+        <div id="hidden">
+            <canvas id="canvas"></canvas>
+        </div>
+    </body>
+    <github-corners
+        id="github-corner"
+        label="Check out the GitHub repository!"
+        repo="H0rn0chse/SpriteBuilder"
+        blank="true"
+    >
+    </github-corners>
+</html>

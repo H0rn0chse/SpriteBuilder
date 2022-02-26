@@ -1,0 +1,25 @@
+#helpModalContent {
+    min-width: 30em;
+    max-width: 40em;
+}
+
+#helpModalContent .content .rowItem {
+    display: grid;
+    grid-template-columns: 10em 3em auto;
+}
+
+#helpModalContent .content .rowItem label:nth-child(1) {
+    grid-area: 1 / 1;
+}
+
+#helpModalContent .content .rowItem label:nth-child(2) {
+    grid-area: 1 / 2;
+}
+
+#helpModalContent .content .rowItem label:nth-child(3) {
+    grid-area: 1 / 3;
+}
+
+#helpModalContent a h4 {
+    cursor: pointer;
+}

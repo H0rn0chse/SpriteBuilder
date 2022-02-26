@@ -1,0 +1,71 @@
+#inspector {
+    position: relative;
+    left: 20em;
+    border-top-left-radius: 5%;
+    border-bottom-left-radius: 5%;
+    padding: 2em;
+}
+
+#inspector.show {
+    -webkit-transition: 0.7s;
+    -moz-transition: 0.7s;
+    -ms-transition: 0.7s;
+    -o-transition: 0.7s;
+    transition: 0.7s;
+    left: 0em !important;
+}
+
+#inspector.hide {
+    -webkit-transition: 0.7s;
+    -moz-transition: 0.7s;
+    -ms-transition: 0.7s;
+    -o-transition: 0.7s;
+    transition: 0.7s;
+    left: 20em !important;
+}
+
+#inspector textarea {
+    resize: none;
+}
+
+.inspectorButton {
+    color: black;
+    background-color: var(--inspector-btn);
+}
+
+#inspectorButton {
+    position: absolute;
+    top: 150px;
+    left: -30px;
+    width: 30px;
+    height: 60px;
+    border-top-left-radius: 80%;
+    border-bottom-left-radius: 80%;
+    cursor: pointer;
+}
+
+#inspectorButton > .arrow {
+    width: 100%;
+    height: 100%;
+}
+
+#inspectorButton > .arrow.right {
+    display: none;
+}
+
+#inspectorDelete {
+    background-color: var(--inspector-error);
+}
+
+#inspector .msg {
+    margin-left: 1em;
+    font-size: 0.75em;
+}
+
+#inspector .msg.error {
+    color: var(--inspector-error);
+}
+
+#inspector .msg.success {
+    color: var(--inspector-success);
+}
