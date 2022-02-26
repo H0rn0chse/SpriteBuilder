@@ -3,22 +3,25 @@
     <head>
         <meta charset="utf-8">
         <title>SpriteBuilder</title>
+        <link rel="icon" type="image/png" href="./img/favicon32.png" sizes="32x32">
+        <link rel="icon" type="image/png" href="./img/favicon96.png" sizes="96x96">
+        <link rel="apple-touch-icon" sizes="180x180" href="./img/favicon180.png">
+        <!-- anonymized statistics-->
+        <script async defer data-website-id="95ae3dc9-4bd7-47ea-9de4-526587633863" src="https://h0rn0chse-umami.herokuapp.com/umami.js"></script>
 
-        <link rel="stylesheet" type="text/css" href="styles/main.css">
-
-        <link rel="icon" type="image/png" href="img/favicon32.png" sizes="32x32">
-        <link rel="icon" type="image/png" href="img/favicon96.png" sizes="96x96">
-        <link rel="apple-touch-icon" sizes="180x180" href="img/favicon180.png">
-
-        <script src="https://unpkg.com/panzoom@9.4.0/dist/panzoom.min.js"></script>
-        <!--<script src="https://cdn.jsdelivr.net/npm/muuri@0.9.3/dist/muuri.min.js"></script>-->
+        <!-- Custom Dependencies -->
         <script src="./libs/muuri.min.js"></script>
-        <script src="./libs/jszip.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic">
-    </head>
-    <script type="module" src="./scripts/main.js"></script>
 
+        <!-- Dependencies -->
+        <script src="./libs/jszip/jszip.min.js" defer></script>
+        <script src="./libs/panzoom/panzoom.min.js" defer></script>
+        <script src="./libs/feather-icons/feather.min.js" defer></script>
+        <script type="module" src="./libs/wc-github-corners/index.es.js"></script>
+        <link rel="stylesheet" href="./libs/picnic/picnic.min.css">
+
+        <link rel="stylesheet" type="text/css" href="./styles/main.css">
+        <script type="module" src="./scripts/main.js"></script>
+    </head>
     <body>
         <div id="container">
             <div class="top ui flexColumn">
@@ -132,10 +135,10 @@
             z-index: 10;
         }
     </style>
-    <script
-        data-label="Check out the GitHub repository!"
-        data-href="https://github.com/H0rn0chse/SpriteBuilder"
-        data-target="_blank"
-        src="https://unpkg.com/github-corners@latest/dist/embed.min.js">
-    </script>
+    <github-corners
+        label="Check out the GitHub repository!"
+        repo="H0rn0chse/SpriteBuilder"
+        blank="true"
+    >
+    </github-corners>
 </html>
