@@ -24,12 +24,12 @@
 
 ## Libraries
 
- * Grid: https://github.com/haltu/muuri
- * Drag: https://github.com/anvaka/panzoom
- * CSS: https://github.com/franciscop/picnic
- * Icons: https://github.com/feathericons/feather
- * Zip: https://github.com/Stuk/jszip
- * Github-Corner: https://github.com/remarkablemark/github-corners
+ * Grid: [github.com/haltu/muuri](https://github.com/haltu/muuri)
+ * Drag: [github.com/anvaka/panzoom](https://github.com/anvaka/panzoom)
+ * CSS: [github.com/franciscop/picnic](https://github.com/franciscop/picnic)
+ * Icons: [github.com/feathericons/feather](https://github.com/feathericons/feather)
+ * Zip: [github.com/Stuk/jszip](https://github.com/Stuk/jszip)
+ * Github Corners [github.com/YunYouJun/wc-github-corners](https://github.com/YunYouJun/wc-github-corners)
 
 ## Controls
  * Move Grid: Ctrl + Drag / Shift + Drag
